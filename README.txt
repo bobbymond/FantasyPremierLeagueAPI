@@ -19,6 +19,8 @@ How to Use
 ----------
 Pre-requisites
  * You will need a username and password for the game site to use any of the methods
+ * You need to install NuGet for 3rd party packages: http://nuget.codeplex.com/
+ * In Visual Studio, you should enable "Allow NuGet to download missing packages during build". See http://docs.nuget.org/docs/workflows/using-nuget-without-committing-packages
 
 Api Methods
  * All API methods are accessed via FantasyPremierLeagueApi.Api.FantasyPremierLeagueApi or FantasyPremierLeagueApi.Api.FantasyScoutApi
