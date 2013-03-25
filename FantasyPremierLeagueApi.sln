@@ -13,11 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0D50E1A8-3408-47F6-8F73-A23824F95D98}"
 	ProjectSection(SolutionItems) = preProject
-		FantasyPremierLeagueApi.vsmdi = FantasyPremierLeagueApi.vsmdi
 		LICENSE.txt = LICENSE.txt
-		Local.testsettings = Local.testsettings
 		README.txt = README.txt
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebRetriever.Test", "Helpers\WebRetriever.Test\WebRetriever.Test.csproj", "{521D2F98-6725-4E22-9435-17947A78C877}"
@@ -34,9 +31,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model.Test", "Model.Test\Model.Test.csproj", "{A3128D20-15D1-44F5-8F55-903C44488BAF}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = FantasyPremierLeagueApi.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
