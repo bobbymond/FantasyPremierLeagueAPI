@@ -29,6 +29,7 @@ using System.Text.RegularExpressions;
 
 namespace FantasyPremierLeagueApi.Model
 {
+    [Serializable]
     public class Result
     {
         public Fixture  Fixture          { get; set; }

@@ -27,6 +27,8 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FantasyPremierLeagueApi.Helpers.Logger;
 using Newtonsoft.Json;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace FantasyPremierLeagueApi.Api
 {
@@ -54,6 +56,14 @@ namespace FantasyPremierLeagueApi.Api
 
             _logger.WriteInfoMessage("This season's league performance by club: " +
                     JsonConvert.SerializeObject(thisSeason));
+
+
+            // test serialize
+            var formatter = new BinaryFormatter();
+            using (var fs = new MemoryStream())
+            {
+                formatter.Serialize(fs, thisSeason);
+            }
         }
 
         [TestMethod]
@@ -65,6 +75,31 @@ namespace FantasyPremierLeagueApi.Api
 
             _logger.WriteInfoMessage("All player stats: " +
                     JsonConvert.SerializeObject(allPlayers));
+
+            // test serialize
+            var formatter = new BinaryFormatter();
+            using (var fs = new MemoryStream())
+            {
+                formatter.Serialize(fs, allPlayers);
+            }
+        }
+
+        [TestMethod]
+        public void TestGetPlayer()
+        {
+            var api = new FantasyPremierLeagueApi(TestConstants.USERNAME, TestConstants.PASSWORD, _logger);
+
+            var player = api.GetPlayer(1);
+
+            _logger.WriteInfoMessage("Player 1 stats: " +
+                    JsonConvert.SerializeObject(player));
+
+            // test serialize
+            var formatter = new BinaryFormatter();
+            using (var fs = new MemoryStream())
+            {
+                formatter.Serialize(fs, player);
+            }
         }
 
         [TestMethod]
@@ -76,6 +111,13 @@ namespace FantasyPremierLeagueApi.Api
 
             _logger.WriteInfoMessage("My squad stats: " +
                     JsonConvert.SerializeObject(allPlayers));
+
+            // test serialize
+            var formatter = new BinaryFormatter();
+            using (var fs = new MemoryStream())
+            {
+                formatter.Serialize(fs, allPlayers);
+            }
         }
 
         [TestMethod]
@@ -86,6 +128,13 @@ namespace FantasyPremierLeagueApi.Api
             var remainingBudget = api.GetRemainingBudget();
 
             _logger.WriteInfoMessage("Remaining budget: " + remainingBudget);
+
+            // test serialize
+            var formatter = new BinaryFormatter();
+            using (var fs = new MemoryStream())
+            {
+                formatter.Serialize(fs, remainingBudget);
+            }
         }
 
     }

@@ -28,6 +28,7 @@ using Newtonsoft.Json;
 
 namespace FantasyPremierLeagueApi.Model.Player
 {
+    [Serializable]
     public abstract class Player
     {
         private const int   m_PointsPerYellow         = -1;
@@ -37,6 +38,7 @@ namespace FantasyPremierLeagueApi.Model.Player
         private const int   m_PointsPerAppearance     = 2;
 
         private RawPlayerStats _rawStats;
+        
 
         public Player(RawPlayerStats stats)
         {
@@ -44,7 +46,7 @@ namespace FantasyPremierLeagueApi.Model.Player
             Club = Clubs.GetClubFromName(stats.TeamName);
             Position = (Enums.Position)Enum.Parse(typeof(Enums.Position), stats.PositionString);
             
-            switch(stats.AvailabilityStatusString)
+            switch(stats.AvailabilityStatusString.Trim())
             {
                 case "a":
                     AvailabilityStatus = Enums.Status.Available;
@@ -55,26 +57,43 @@ namespace FantasyPremierLeagueApi.Model.Player
                 case "d":
                     AvailabilityStatus = Enums.Status.Doubtful;
                     break;
+                case "n":
+                    AvailabilityStatus = Enums.Status.Unavailable;
+                    break;
+                case "s":
+                    AvailabilityStatus = Enums.Status.Suspended;
+                    break;
+                case "u":
+                    AvailabilityStatus = Enums.Status.Unavailable;
+                    break;
                 default:
                     throw new ApplicationException("Unknown status: " + stats.AvailabilityStatusString);
                     break;
             }
 
             GameweekHistory = new PlayerGameweekHistory(Club, stats.GameweekHistory.RawGameweeks);
+            Fixtures = stats.Fixtures.AllFixtures
+                    .Where(f => f[0] != "-")
+                    .GroupBy(f => int.Parse(f[1].Split(' ')[1])) // group by gameweek (f[1] in form "Gameweek x")
+                    .ToDictionary(
+                        grp => grp.Key,
+                        grp => grp.Select(f => new Fixture(Club, f)).ToArray()
+                     );
+                    
         }
 
-        public int                      Id                  { get { return _rawStats.Id; } }
-        public string                   Name                { get { return _rawStats.Name; } }
-        public int                      Value               { get { return _rawStats.Value; } }
-        public int                      Points              { get { return _rawStats.Points; } }
-        public float                    PointsPerGame       { get { return _rawStats.PointsPerGame; } }
-        public string                   News                { get { return _rawStats.News; } }
+        public int                          Id                  { get { return _rawStats.Id; } }
+        public string                       Name                { get { return _rawStats.Name; } }
+        public int                          Value               { get { return _rawStats.Value; } }
+        public int                          Points              { get { return _rawStats.Points; } }
+        public float                        PointsPerGame       { get { return _rawStats.PointsPerGame; } }
+        public string                       News                { get { return _rawStats.News; } }
         
-        public IClub                    Club                { get; private set; }
-        public Enums.Status             AvailabilityStatus  { get; private set; }
-        public PlayerGameweekHistory    GameweekHistory     { get; private set; }        
-        public Enums.Position           Position            { get; private set; }
-
+        public IClub                        Club                { get; private set; }
+        public Enums.Status                 AvailabilityStatus  { get; private set; }
+        public PlayerGameweekHistory        GameweekHistory     { get; private set; }        
+        public Enums.Position               Position            { get; private set; }
+        public Dictionary<int,Fixture[]>    Fixtures            { get; private set; }
         
         public int MinutesPlayed { get { return GameweekHistory.MinutesPlayed; } }
         public int Goals { get { return GameweekHistory.Goals; } }

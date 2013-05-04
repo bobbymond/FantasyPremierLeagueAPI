@@ -93,6 +93,10 @@ namespace FantasyPremierLeagueApi.Api
                         _allPlayersCache.Add(i, player);
                     }
                 }
+                catch (ApplicationException ae)
+                {
+                    _logger.WriteErrorMessage(string.Format("Error getting player stats for player id {0}: {1}\r\n{2}", i, ae.Message, ae.StackTrace));
+                }
                 catch (Exception e)
                 {
                     // some of the ids may throw - only log to debug logger
@@ -177,6 +181,9 @@ namespace FantasyPremierLeagueApi.Api
                 _logger.WriteInfoMessage("Creating Session");
                 var authenticator = new FantasyPremierLeagueAuthenticator(_logger);
                 _session = authenticator.Authenticate(_username, _password);
+
+                if (_session == null)
+                    throw new ApplicationException("Failed to create session");
             }
         }
 

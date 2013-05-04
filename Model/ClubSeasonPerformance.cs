@@ -28,6 +28,7 @@ using FantasyPremierLeagueApi.Model.Club;
 
 namespace FantasyPremierLeagueApi.Model
 {
+    [Serializable]
     public class ClubSeasonPerformance
     {
         public IClub Club           { get; set; }

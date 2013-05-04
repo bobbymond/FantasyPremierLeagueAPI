@@ -30,6 +30,7 @@ using FantasyPremierLeagueApi.Model.Club;
 
 namespace FantasyPremierLeagueApi.Model.Player
 {
+    [Serializable]
     public class PlayerGameweekHistory
     {
         public List<PlayerGameweek> Gameweeks { get; private set; }

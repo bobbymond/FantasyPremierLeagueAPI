@@ -58,7 +58,7 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.FantasyScout
             var contentElement = htmlDoc.GetElementbyId("content");
             var leagueTableBody = contentElement.SelectSingleNode("//div[@class='ffs-team-news']/ol[@class='news']");
 
-            var items = leagueTableBody.Elements("li");
+            var items = leagueTableBody.Elements("li"); // force evaluation
 
             var result = new Dictionary<IClub, IEnumerable<string>>();
             foreach(var item in items)
@@ -68,7 +68,7 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.FantasyScout
 
                 var club = Clubs.GetClubFromName(clubName);
 
-                result.Add(club, players);
+                result.Add(club, players.ToArray());
             }
 
             return result;
@@ -77,8 +77,11 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.FantasyScout
 
         private IEnumerable<string> ParseExpectedTeam(HtmlNode item)
         {
-            var playerNodes = item.SelectNodes("//li/span[@class='player-name']");
-
+            //var playerNodes = item.FirstChild.SelectNodes("//li/span[@class='player-name']");
+            var playerNodes = item
+                .Descendants("div").Single()
+                .Descendants("ul").SelectMany(x => x.SelectNodes("li/span[@class='player-name']"));
+                
             return playerNodes.Select(node => node.InnerText);
         }
     }

@@ -63,6 +63,9 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever
                 var parameters = string.Format("{0}={1}&{2}={3}", _FIELD_USERNAME, username, _FIELD_PASSWORD, password);
                 requester.Post(_URL_LOGIN, parameters, ref cookies);
 
+                if (cookies.Count < 3)
+                    throw new Exception("Authentication failed for user " + username);
+
                 return cookies;
             }
             catch (Exception e)

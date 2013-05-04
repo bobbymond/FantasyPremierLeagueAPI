@@ -27,6 +27,7 @@ using System.Text;
 
 namespace FantasyPremierLeagueApi.Model.Club
 {
+    [Serializable]
     public abstract class AbstractClub : IClub
     {
         public abstract string FullName  { get; }
@@ -44,6 +45,11 @@ namespace FantasyPremierLeagueApi.Model.Club
             var AbstractClub = obj as AbstractClub;
             if (AbstractClub == null) return false;
             return FullName.Equals(AbstractClub.FullName);
+        }
+
+        public override string ToString()
+        {
+            return ShortCode;
         }
     }
 }

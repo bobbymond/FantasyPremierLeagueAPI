@@ -27,6 +27,7 @@ using System.Text;
 
 namespace FantasyPremierLeagueApi.Model.Player
 {
+    [Serializable]
     public class Enums
     {
         public enum Position
@@ -42,7 +43,9 @@ namespace FantasyPremierLeagueApi.Model.Player
             Available = 0,
             Injured = 1,
             Doubtful = 2,
-            Suspended = 3
+            Suspended = 3,
+            Unavailable = 4
+
         }
     }
 }

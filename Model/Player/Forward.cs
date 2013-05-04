@@ -26,6 +26,7 @@ using System.Text;
 
 namespace FantasyPremierLeagueApi.Model.Player
 {
+    [Serializable]
     public class Forward : Player
     {
         private const int m_PointsPerGoal = 4;

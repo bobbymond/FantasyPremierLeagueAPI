@@ -28,6 +28,7 @@ using Newtonsoft.Json;
 
 namespace FantasyPremierLeagueApi.Model.Player
 {
+    [Serializable]
     public class RawPlayerStats
     {
         [JsonProperty("id")]
@@ -57,13 +58,24 @@ namespace FantasyPremierLeagueApi.Model.Player
         [JsonProperty("fixture_history")]
         public RawPlayerGameweekHistory GameweekHistory { get; set; }
 
+        [JsonProperty("fixtures")]
+        public RawFixtures Fixtures { get; set; }
+
         [JsonProperty("type_name")]
         public string PositionString { get; set; }
 
+        [Serializable]
         public class RawPlayerGameweekHistory
         {
             [JsonProperty("all")]
             public List<object[]> RawGameweeks { get; set; }
+        }
+
+        [Serializable]
+        public class RawFixtures 
+        {
+            [JsonProperty("all")]
+            public List<string[]> AllFixtures { get; set; }
         }
 
     }

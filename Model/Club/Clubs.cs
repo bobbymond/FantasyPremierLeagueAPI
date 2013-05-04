@@ -66,6 +66,7 @@ namespace FantasyPremierLeagueApi.Model.Club
 
         #region All Clubs (Immutable)
 
+        [Serializable]
         public sealed class Arsenal : AbstractClub
         {
 
@@ -90,6 +91,7 @@ namespace FantasyPremierLeagueApi.Model.Club
 
         }
 
+        [Serializable]
         public sealed class AstonVilla : AbstractClub
         {
             #region Singleton Pattern 
@@ -112,6 +114,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "AVL"; } }
         }
 
+        [Serializable]
         public sealed class Chelsea : AbstractClub
         {
              #region Singleton Pattern 
@@ -134,6 +137,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "CHE"; } }
         }
 
+        [Serializable]
         public sealed class Everton : AbstractClub
         {
             #region Singleton Pattern 
@@ -156,6 +160,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "EVE"; } }
         }
 
+        [Serializable]
         public sealed class Fulham : AbstractClub
         {
             #region Singleton Pattern 
@@ -178,6 +183,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "FUL"; } }
         }
 
+        [Serializable]
         public sealed class Liverpool : AbstractClub
         {
             #region Singleton Pattern 
@@ -200,6 +206,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "LIV"; } }
         }
 
+        [Serializable]
         public sealed class ManCity : AbstractClub
         {
             #region Singleton Pattern 
@@ -223,6 +230,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "MCI"; } }
         }
 
+        [Serializable]
         public sealed class ManUtd : AbstractClub
         {
              #region Singleton Pattern 
@@ -241,10 +249,13 @@ namespace FantasyPremierLeagueApi.Model.Club
             #endregion   
 
             public override string FullName  { get { return "Manchester United"; } }
+            public override List<string> AltNames { get { return new List<string> { "Man Utd" }; } }
+            
             public override string ShortCode { get { return "MUN"; } }
 
         }
 
+        [Serializable]
         public sealed class Newcastle : AbstractClub
         {
             #region Singleton Pattern 
@@ -268,6 +279,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "NEW"; } }
         }
 
+        [Serializable]
         public sealed class Norwich : AbstractClub
         {
             #region Singleton Pattern 
@@ -291,6 +303,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "NOR"; } }
         }
 
+        [Serializable]
         public sealed class QPR : AbstractClub
         {
             #region Singleton Pattern 
@@ -314,6 +327,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "QPR"; } }
         }
 
+        [Serializable]
         public sealed class Reading : AbstractClub
         {
             #region Singleton Pattern 
@@ -336,6 +350,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "RDG"; } }
         }
 
+        [Serializable]
         public sealed class Southampton : AbstractClub
         {
             #region Singleton Pattern 
@@ -359,6 +374,7 @@ namespace FantasyPremierLeagueApi.Model.Club
 
         }
 
+        [Serializable]
         public sealed class Spurs : AbstractClub
         {
             #region Singleton Pattern 
@@ -382,6 +398,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "TOT"; } }
         }
 
+        [Serializable]
         public sealed class Stoke : AbstractClub
         {
             #region Singleton Pattern 
@@ -405,6 +422,7 @@ namespace FantasyPremierLeagueApi.Model.Club
 
         }
 
+        [Serializable]
         public sealed class Sunderland : AbstractClub
         {
             #region Singleton Pattern 
@@ -427,6 +445,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "SUN"; } }
         }
 
+        [Serializable]
         public sealed class Swansea : AbstractClub
         {
             #region Singleton Pattern 
@@ -450,6 +469,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "SWA"; } }
         }
 
+        [Serializable]
         public sealed class WestBrom : AbstractClub
         {
             #region Singleton Pattern 
@@ -469,9 +489,12 @@ namespace FantasyPremierLeagueApi.Model.Club
             #endregion
 
             public override string FullName { get { return "West Bromwich Albion"; } }
+            public override List<string> AltNames { get { return new List<string> { "West Brom" }; } }
+            
             public override string ShortCode{ get { return "WBA"; } }
         }
 
+        [Serializable]
         public sealed class WestHam : AbstractClub
         {
             #region Singleton Pattern 
@@ -491,9 +514,11 @@ namespace FantasyPremierLeagueApi.Model.Club
             #endregion
 
             public override string FullName  { get { return "West Ham United"; } }
+            public override List<string> AltNames { get { return new List<string> { "West Ham" }; } }
             public override string ShortCode { get { return "WHU"; } }
         }
 
+        [Serializable]
         public sealed class Wigan : AbstractClub
         {
             #region Singleton Pattern 
@@ -513,6 +538,8 @@ namespace FantasyPremierLeagueApi.Model.Club
             #endregion
 
             public override string FullName  { get { return "Wigan Athletic"; } }
+            public override List<string> AltNames { get { return new List<string> { "Wigan" }; } }
+            
             public override string ShortCode { get { return "WIG"; } }
         }
 

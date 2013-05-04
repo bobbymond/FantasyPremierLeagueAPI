@@ -28,6 +28,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FantasyPremierLeagueApi.Api;
 using FantasyPremierLeagueApi.Helpers.Logger;
 using Newtonsoft.Json;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace FantasyPremierLeagueApi.Test.ApiTests
 {
@@ -45,6 +47,13 @@ namespace FantasyPremierLeagueApi.Test.ApiTests
 
             _logger.WriteInfoMessage("Expected teams: " +
                     JsonConvert.SerializeObject(expectedTeams));
+
+            // test serialize
+            var formatter = new BinaryFormatter();
+            using (var fs = new MemoryStream())
+            {
+                formatter.Serialize(fs, expectedTeams);
+            }
         }
     }
 }

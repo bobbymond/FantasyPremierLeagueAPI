@@ -26,15 +26,18 @@ using System.Linq;
 using System.Text;
 using FantasyPremierLeagueApi.Model.Club;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace FantasyPremierLeagueApi.Model
 {
+    [Serializable]
     public enum Venue
     {
         Home,
         Away
     }
 
+    [Serializable]
     public class Fixture
     {
         private IClub m_team;
@@ -50,6 +53,28 @@ namespace FantasyPremierLeagueApi.Model
             m_kickOff = ko;
         }
 
+        /// <summary>
+        /// Expects a 3 element array e.g.
+        /// 
+        /// [
+        ///   "13 Apr 15:00",
+        ///   "Gameweek 33",
+        ///   "Norwich (H)"
+        /// ]
+        /// 
+        /// </summary>
+        /// <param name="fixtureInfo"></param>
+        public Fixture(IClub team, string[] fixtureInfo)
+        {
+            m_team = team;
+
+            Match oppositionMatch = Regex.Match(fixtureInfo[2], @"(.+)\((H|A)\)", RegexOptions.Singleline);
+
+            m_opposition = Clubs.GetClubFromName(oppositionMatch.Groups[1].Value.Trim());
+            m_venue = ParseVenue(oppositionMatch.Groups[2].Value.Trim());
+            m_kickOff = DateTime.ParseExact(fixtureInfo[0], "dd MMM HH:mm", CultureInfo.InvariantCulture);
+        }
+
         public IClub Team { get { return m_team; } }
         public Venue Venue { get { return m_venue; } }
         public IClub Opposition { get { return m_opposition; } }
@@ -60,8 +85,10 @@ namespace FantasyPremierLeagueApi.Model
             switch (venue)
             {
                 case "H":
+                case "(H)":
                     return Venue.Home;
                 case "A":
+                case "(A)":
                     return Venue.Away;
                 default:
                     throw new ArgumentException("Unknown venue type " + venue);
