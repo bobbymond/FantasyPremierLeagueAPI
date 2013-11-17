@@ -52,7 +52,7 @@ namespace FantasyPremierLeagueApi.Api
         {
             var api = new FantasyPremierLeagueApi(TestConstants.USERNAME, TestConstants.PASSWORD, _logger);
 
-            var thisSeason = api.GetClubSeasonPerformances();
+            var thisSeason = api.GetClubSeasonPerformances("2013-2014");
 
             _logger.WriteInfoMessage("This season's league performance by club: " +
                     JsonConvert.SerializeObject(thisSeason));
@@ -89,9 +89,9 @@ namespace FantasyPremierLeagueApi.Api
         {
             var api = new FantasyPremierLeagueApi(TestConstants.USERNAME, TestConstants.PASSWORD, _logger);
 
-            var player = api.GetPlayer(1);
+            var player = api.GetPlayer(23);
 
-            _logger.WriteInfoMessage("Player 1 stats: " +
+            _logger.WriteInfoMessage("Player 23 stats: " +
                     JsonConvert.SerializeObject(player));
 
             // test serialize

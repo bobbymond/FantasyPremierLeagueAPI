@@ -49,8 +49,8 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Page
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(response);
             var ismElement = htmlDoc.GetElementbyId("ism");
-            var ismEventInfoPrimary = ismElement.SelectSingleNode("//div[@class='ismEventInfoPrimary']");
-            var ismMegaLargeParagraph = ismEventInfoPrimary.SelectSingleNode("//p[@class='ismMegaLarge']");
+            var ismEventInfoPrimary = ismElement.SelectSingleNode("//div[@class='ism-event-info']");
+            var ismMegaLargeParagraph = ismEventInfoPrimary.SelectSingleNode("//h3[@class='ism-event-info__sub-heading ism-pl-font']");
             var gameweekNum = ismMegaLargeParagraph.InnerText.Replace("Gameweek", "").Trim();
 
             return int.Parse(gameweekNum);

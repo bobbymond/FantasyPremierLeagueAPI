@@ -42,11 +42,23 @@ namespace FantasyPremierLeagueApi.Model
         /// <param name="ko"></param>
         public Result(IClub team, string resultString, DateTime ko)
         {
-
-            Match fixture_match = Regex.Match(resultString, @"(.+)\((H|A)\)\s(\d)-(\d)", RegexOptions.Singleline);
+            Match fixture_match = Regex.Match(resultString, @"(.+)\((H|A)\)(.*)", RegexOptions.Singleline);
             Fixture = new Fixture(team, Clubs.GetClubFromShortcode(fixture_match.Groups[1].Value.Trim()), Fixture.ParseVenue(fixture_match.Groups[2].Value.Trim()), ko);
-            GoalsScored = int.Parse(fixture_match.Groups[3].Value.Trim());
-            GoalsConceded = int.Parse(fixture_match.Groups[4].Value.Trim());
+
+            var scoreString = fixture_match.Groups[3].Value.Trim();
+
+            if(string.IsNullOrEmpty(scoreString)) // the game hasn't been played yet
+            {
+                GoalsScored = 0;
+                GoalsConceded = 0;
+            }
+            else
+            {
+                Match scoreMatch = Regex.Match(scoreString, @"(\d)-(\d)", RegexOptions.Singleline);
+
+                GoalsScored = int.Parse(scoreMatch.Groups[1].Value.Trim());
+                GoalsConceded = int.Parse(scoreMatch.Groups[2].Value.Trim());
+            }
 
         }
     }

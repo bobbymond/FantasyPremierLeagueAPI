@@ -43,7 +43,15 @@ namespace FantasyPremierLeagueApi.Model.Player
         public Player(RawPlayerStats stats)
         {
             _rawStats = stats;
-            Club = Clubs.GetClubFromName(stats.TeamName);
+            try
+            {
+                Club = Clubs.GetClubFromName(stats.TeamName);
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException(string.Format("Unable to parse club for player '{0}'", stats.Name), e);
+            }
+
             Position = (Enums.Position)Enum.Parse(typeof(Enums.Position), stats.PositionString);
             
             switch(stats.AvailabilityStatusString.Trim())
@@ -71,7 +79,15 @@ namespace FantasyPremierLeagueApi.Model.Player
                     break;
             }
 
-            GameweekHistory = new PlayerGameweekHistory(Club, stats.GameweekHistory.RawGameweeks);
+            try
+            {
+                GameweekHistory = new PlayerGameweekHistory(Club, stats.GameweekHistory.RawGameweeks);
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException(string.Format("Unable to parse gameweek history for player '{0}'", stats.Name), e);
+            }
+
             Fixtures = stats.Fixtures.AllFixtures
                     .Where(f => f[0] != "-")
                     .GroupBy(f => int.Parse(f[1].Split(' ')[1])) // group by gameweek (f[1] in form "Gameweek x")
