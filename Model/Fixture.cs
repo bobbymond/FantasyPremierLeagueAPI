@@ -125,7 +125,6 @@ namespace FantasyPremierLeagueApi.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hash = 17;
-                // Suitable nullity checks etc, of course :)
                 hash = hash * 23 + m_team.GetHashCode();
                 hash = hash * 23 + m_opposition.GetHashCode();
                 hash = hash * 23 + m_venue.GetHashCode();

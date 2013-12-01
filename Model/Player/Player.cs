@@ -261,9 +261,9 @@ namespace FantasyPremierLeagueApi.Model.Player
             // If parameter is null return false.
             if (obj == null) return false;
             
-            // If parameter cannot be cast to Point return false.
-            Player p = obj as Player;
-            if ((System.Object)p == null) return false;
+            // If parameter cannot be cast to Player return false.
+            var p = obj as Player;
+            if (p == null) return false;
             
             // Return true if the fields match:
             return (Name == p.Name) && (Club == p.Club);
@@ -271,7 +271,11 @@ namespace FantasyPremierLeagueApi.Model.Player
 
         public override int GetHashCode()
         {
-            return (Name + Club).GetHashCode();
+            var result = 17;
+            result = result * 23 + Name.GetHashCode();
+            result = result * 23 + Club.ShortCode.GetHashCode();
+
+            return result;
         }
     }
 }

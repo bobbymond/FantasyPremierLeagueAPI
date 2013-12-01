@@ -37,14 +37,14 @@ namespace FantasyPremierLeagueApi.Model.Club
 
         public override int GetHashCode()
         {
-            return FullName.GetHashCode();
+            return ShortCode.GetHashCode();
         }
 
         public override bool Equals(object obj)
         {
             var AbstractClub = obj as AbstractClub;
             if (AbstractClub == null) return false;
-            return FullName.Equals(AbstractClub.FullName);
+            return ShortCode == AbstractClub.ShortCode;
         }
 
         public override string ToString()
