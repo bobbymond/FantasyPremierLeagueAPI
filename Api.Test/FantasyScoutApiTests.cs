@@ -30,6 +30,7 @@ using FantasyPremierLeagueApi.Helpers.Logger;
 using Newtonsoft.Json;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using FantasyPremierLeagueApi.Model.Club;
 
 namespace FantasyPremierLeagueApi.Test.ApiTests
 {
@@ -54,6 +55,16 @@ namespace FantasyPremierLeagueApi.Test.ApiTests
             {
                 formatter.Serialize(fs, expectedTeams);
             }
+        }
+
+        [TestMethod]
+        public void TestGetExpectedReturnDates()
+        {
+            var api = new FantasyScoutApi(_logger);
+
+            var expectedReturnDates = api.GetExpectedReturnDatesByTeam();
+
+            _logger.WriteInfoMessage("Coleman back: " + expectedReturnDates[Clubs.Everton.Instance]["Coleman"].ToShortDateString());
         }
     }
 }

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FantasyPremierLeagueAuthenticator.cs" />
+    <Compile Include="FantasyScout\InjuryNewsRetriever.cs" />
     <Compile Include="FantasyScout\TeamNewsRetriever.cs" />
     <Compile Include="Pages\HomepageRetriever.cs" />
     <Compile Include="Pages\LeagueTableRetriever.cs" />

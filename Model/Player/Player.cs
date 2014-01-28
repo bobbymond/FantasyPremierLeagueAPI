@@ -266,7 +266,7 @@ namespace FantasyPremierLeagueApi.Model.Player
             if (p == null) return false;
             
             // Return true if the fields match:
-            return (Name == p.Name) && (Club == p.Club);
+            return (Name == p.Name) && (Club == p.Club) && (Position == p.Position);
         }
 
         public override int GetHashCode()

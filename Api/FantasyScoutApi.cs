@@ -49,5 +49,18 @@ namespace FantasyPremierLeagueApi.Api
 
             return reader.GetTeamNews();  
         }
+
+        /// <summary>
+        /// Returns a dictionary mapping clubs to a dictionary mapping player names to expected return dates, as scraped from www.fantasyfootballscout.co.uk
+        /// 
+        /// Excludes players with unknown return dates
+        /// </summary>
+        /// <returns>Dictionary mapping Club -> [Dictionary mapping player name -> expected return date]</returns>
+        public Dictionary<IClub, Dictionary<string, DateTime>> GetExpectedReturnDatesByTeam()
+        {
+            var reader = new InjuryNewRetriever(_logger);
+
+            return reader.GetInjuryNews();
+        }
     }
 }

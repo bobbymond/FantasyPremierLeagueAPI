@@ -27,6 +27,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FantasyPremierLeagueApi.Model.Club;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace FantasyPremierLeagueApi.Model
 {
