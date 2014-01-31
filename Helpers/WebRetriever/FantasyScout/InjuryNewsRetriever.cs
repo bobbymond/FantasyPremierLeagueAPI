@@ -72,14 +72,14 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.FantasyScout
                     continue;
 
                 var allCols = item.SelectNodes("td");
-                if (allCols.Count < 5)
+                if (allCols.Count < 4)
                     continue;
 
                 var playerName = allCols[0].InnerText.Trim();
                 if (playerName.Contains('('))
                     playerName = playerName.Split('(')[0].Trim();
 
-                var returnDateStr = allCols[5].InnerText.Trim();
+                var returnDateStr = allCols[3].InnerText.Trim();
                 DateTime returnDate;
                 if (!DateTime.TryParseExact(returnDateStr, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out returnDate))
                     continue;
