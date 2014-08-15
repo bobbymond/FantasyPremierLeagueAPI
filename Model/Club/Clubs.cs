@@ -115,6 +115,30 @@ namespace FantasyPremierLeagueApi.Model.Club
         }
 
         [Serializable]
+        public sealed class Burnley : AbstractClub
+        {
+            #region Singleton Pattern
+
+            private static readonly Burnley _instance = new Burnley();
+
+            private Burnley() { }
+
+            public static Burnley Instance
+            {
+                get
+                {
+                    return _instance;
+                }
+            }
+
+            #endregion
+
+            public override string FullName { get { return "Burnley"; } }
+            public override string ShortCode { get { return "BUR"; } }
+        }
+
+
+        [Serializable]
         public sealed class Cardiff : AbstractClub
         {
             #region Singleton Pattern
@@ -249,7 +273,32 @@ namespace FantasyPremierLeagueApi.Model.Club
             #endregion
 
             public override string FullName { get { return "Hull City"; } }
+            public override List<string> AltNames { get { return new List<string> { "Hull" }; } }
             public override string ShortCode { get { return "HUL"; } }
+        }
+
+        [Serializable]
+        public sealed class Leicester : AbstractClub
+        {
+            #region Singleton Pattern
+
+            private static readonly Leicester _instance = new Leicester();
+
+            private Leicester() { }
+
+            public static Leicester Instance
+            {
+                get
+                {
+                    return _instance;
+                }
+            }
+
+            #endregion
+
+            public override string FullName { get { return "Leicester City"; } }
+            public override List<string> AltNames { get { return new List<string> { "Leicester" }; } }
+            public override string ShortCode { get { return "LEI"; } }
         }
 
         [Serializable]
@@ -463,7 +512,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             #endregion
 
             public override string FullName  { get { return "Tottenham Hotspur"; } }
-            public override List<string> AltNames { get { return new List<string> { "Tottenham" }; } }
+            public override List<string> AltNames { get { return new List<string> { "Tottenham", "Spurs" }; } }
             public override string ShortCode { get { return "TOT"; } }
         }
 
@@ -487,6 +536,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             #endregion
 
             public override string FullName  { get { return "Stoke City"; } }
+            public override List<string> AltNames { get { return new List<string> { "Stoke" }; } }
             public override string ShortCode { get { return "STK"; } }
 
         }
@@ -619,12 +669,14 @@ namespace FantasyPremierLeagueApi.Model.Club
         private static IEnumerable<IClub> allClubs = new List<IClub> {
             Arsenal.Instance,
             AstonVilla.Instance,
+            Burnley.Instance,
             Cardiff.Instance,
             Chelsea.Instance,
             CrystalPalace.Instance,
             Everton.Instance,
             Fulham.Instance,
             Hull.Instance,
+            Leicester.Instance,
             Liverpool.Instance,
             ManCity.Instance,
             ManUtd.Instance,

@@ -88,6 +88,21 @@ namespace FantasyPremierLeagueApi.Model.Player
                 throw new ApplicationException(string.Format("Unable to parse gameweek history for player '{0}'", stats.Name), e);
             }
 
+            try
+            {
+                if (stats.SeasonHistory != null && stats.SeasonHistory.Any())
+                {
+                    PreviousSeasons = new Dictionary<string, PlayerSeasonPerformance>();
+
+                    foreach (var season in stats.SeasonHistory)
+                        PreviousSeasons.Add(((string)season[0]).Trim(), new PlayerSeasonPerformance(season));
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException(string.Format("Unable to parse season history for player '{0}'", stats.Name), e);
+            }
+
             Fixtures = stats.Fixtures.AllFixtures
                     .Where(f => f[0] != "-")
                     .GroupBy(f => int.Parse(f[1].Split(' ')[1])) // group by gameweek (f[1] in form "Gameweek x")
@@ -98,18 +113,19 @@ namespace FantasyPremierLeagueApi.Model.Player
                     
         }
 
-        public int                          Id                  { get { return _rawStats.Id; } }
-        public string                       Name                { get { return _rawStats.Name; } }
-        public int                          Value               { get { return _rawStats.Value; } }
-        public int                          Points              { get { return _rawStats.Points; } }
-        public float                        PointsPerGame       { get { return _rawStats.PointsPerGame; } }
-        public string                       News                { get { return _rawStats.News; } }
+        public int                                          Id                  { get { return _rawStats.Id; } }
+        public string                                       Name                { get { return _rawStats.Name; } }
+        public int                                          Value               { get { return _rawStats.Value; } }
+        public int                                          Points              { get { return _rawStats.Points; } }
+        public float                                        PointsPerGame       { get { return _rawStats.PointsPerGame; } }
+        public string                                       News                { get { return _rawStats.News; } }
         
-        public IClub                        Club                { get; private set; }
-        public Enums.Status                 AvailabilityStatus  { get; private set; }
-        public PlayerGameweekHistory        GameweekHistory     { get; private set; }        
-        public Enums.Position               Position            { get; private set; }
-        public Dictionary<int,Fixture[]>    Fixtures            { get; private set; }
+        public IClub                                        Club                { get; private set; }
+        public Enums.Status                                 AvailabilityStatus  { get; private set; }
+        public PlayerGameweekHistory                        GameweekHistory     { get; private set; }        
+        public Enums.Position                               Position            { get; private set; }
+        public Dictionary<int,Fixture[]>                    Fixtures            { get; private set; }
+        public Dictionary<string, PlayerSeasonPerformance>  PreviousSeasons     { get; private set; }     
         
         public int MinutesPlayed { get { return GameweekHistory.MinutesPlayed; } }
         public int Goals { get { return GameweekHistory.Goals; } }

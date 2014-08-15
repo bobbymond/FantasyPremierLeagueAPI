@@ -58,6 +58,7 @@
     <Compile Include="Player\Player.cs" />
     <Compile Include="Player\PlayerGameweek.cs" />
     <Compile Include="Player\PlayerGameweekHistory.cs" />
+    <Compile Include="Player\PlayerSeasonPerformance.cs" />
     <Compile Include="Player\RawPlayerStats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result.cs" />

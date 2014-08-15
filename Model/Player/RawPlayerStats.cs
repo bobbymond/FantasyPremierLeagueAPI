@@ -64,6 +64,9 @@ namespace FantasyPremierLeagueApi.Model.Player
         [JsonProperty("type_name")]
         public string PositionString { get; set; }
 
+        [JsonProperty("season_history")]
+        public object[][] SeasonHistory { get; set; }
+
         [Serializable]
         public class RawPlayerGameweekHistory
         {

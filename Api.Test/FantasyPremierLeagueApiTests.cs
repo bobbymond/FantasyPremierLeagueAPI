@@ -52,11 +52,14 @@ namespace FantasyPremierLeagueApi.Api
         {
             var api = new FantasyPremierLeagueApi(TestConstants.USERNAME, TestConstants.PASSWORD, _logger);
 
-            var thisSeason = api.GetClubSeasonPerformances("2013-2014");
+            var lastSeason = api.GetClubSeasonPerformances("2013-2014");
+            var thisSeason = api.GetClubSeasonPerformances("2014-2015");
+
+            _logger.WriteInfoMessage("Last season's league performance by club: " +
+                    JsonConvert.SerializeObject(lastSeason));
 
             _logger.WriteInfoMessage("This season's league performance by club: " +
                     JsonConvert.SerializeObject(thisSeason));
-
 
             // test serialize
             var formatter = new BinaryFormatter();
