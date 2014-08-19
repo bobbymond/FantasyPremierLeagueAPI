@@ -50,8 +50,8 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Page
             htmlDoc.LoadHtml(response);
             var ismElement = htmlDoc.GetElementbyId("ism");
             var ismEventInfoPrimary = ismElement.SelectSingleNode("//div[@class='ism-event-info']");
-            if (ismEventInfoPrimary == null) // hack for now - see if this still works come gameweek 2 :-)
-                return 1;
+            if (ismEventInfoPrimary == null) // hack for now - see if this still works once gameweek 1 starts :-)
+                return 0;
             var ismMegaLargeParagraph = ismEventInfoPrimary.SelectSingleNode("//h3[@class='ism-event-info__sub-heading ism-pl-font']");
             var gameweekNum = ismMegaLargeParagraph.InnerText.Replace("Gameweek", "").Trim();
 

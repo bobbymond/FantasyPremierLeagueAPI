@@ -47,6 +47,7 @@ namespace FantasyPremierLeagueApi.Model.Player
         public int Saves { get; private set; }
         public int Bonus { get; private set; }
         public int GamesPlayed { get; private set; }
+        public int OwnGoals { get; private set; }
 
         public PlayerGameweekHistory(IClub club, List<object[]> RawGameweeks)
         {
@@ -80,6 +81,7 @@ namespace FantasyPremierLeagueApi.Model.Player
                 RedCards += playerGw.RedCards;
                 Saves += playerGw.Saves;
                 Bonus += playerGw.Bonus;
+                OwnGoals += playerGw.OwnGoals;
             }
 
             GamesPlayed = RawGameweeks.Count();

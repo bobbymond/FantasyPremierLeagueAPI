@@ -94,8 +94,7 @@ namespace FantasyPremierLeagueApi.Api
 
             var player = api.GetPlayer(23);
 
-            _logger.WriteInfoMessage("Player 23 stats: " +
-                    JsonConvert.SerializeObject(player));
+            _logger.WriteInfoMessage("Player 23 stats: " + JsonConvert.SerializeObject(player));
 
             // test serialize
             var formatter = new BinaryFormatter();

@@ -40,13 +40,13 @@ namespace FantasyPremierLeagueApi.Model.Player
         [JsonProperty("team_name")]
         public string TeamName { get; set; }
 
-        [JsonProperty("event_cost")]
+        [JsonProperty("now_cost")]
         public int Value { get; set; }
 
-        [JsonProperty("points")]
+        [JsonProperty("total_points")]
         public int Points { get; set; }
 
-        [JsonProperty("point_per_game")]
+        [JsonProperty("points_per_game")]
         public float PointsPerGame { get; set; }
 
         [JsonProperty("status")]

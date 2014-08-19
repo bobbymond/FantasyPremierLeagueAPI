@@ -69,7 +69,16 @@ namespace FantasyPremierLeagueApi.Model.Player
         {
             get { return m_PointPer2GoalsConceded; }
         }
-            
+
+        public float PointsPerSave
+        {
+            get { return m_PointsPerSave; }
+        }
+
+        public float PointsPerPenaltySave
+        {
+            get { return m_PointsPerPenaltySave; }
+        }
 
     }
 }

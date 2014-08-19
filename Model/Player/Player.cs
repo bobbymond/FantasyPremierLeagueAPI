@@ -35,7 +35,9 @@ namespace FantasyPremierLeagueApi.Model.Player
         private const int   m_PointsPerRed            = -3;
         private const int   m_PointPerPenaltyMiss     = -2;
         private const int   m_PointsPerAssist         = 3;
-        private const int   m_PointsPerAppearance     = 2;
+        private const int   m_PointsPerStart          = 1;
+        private const int   m_PointsPer60             = 1;
+        private const int   m_PointsPerOwnGoal        = -2;
 
         private RawPlayerStats _rawStats;
         
@@ -139,13 +141,19 @@ namespace FantasyPremierLeagueApi.Model.Player
         public int Saves { get { return GameweekHistory.Saves; } }
         public int Bonus { get { return GameweekHistory.Bonus; } }
         public int GamesPlayed { get { return GameweekHistory.GamesPlayed; } }
+        public int OwnGoals { get { return GameweekHistory.OwnGoals; } }
 
         abstract public int PointsPerGoal { get; }
         abstract public int PointsPerCleanSheet { get; }
         abstract public int PointsPer2GoalsConceded { get; }
 
         public int PointsPerAssist { get { return m_PointsPerAssist; } }
-        public int PointsPerAppearance { get { return m_PointsPerAppearance; } }
+        public int PointsPerStart { get { return m_PointsPerStart; } }
+        public int PointsPer60Mins { get { return m_PointsPer60; } }
+        public int PointsPerOwnGoal { get { return m_PointsPerOwnGoal; } }
+        public int PointsPerRed { get { return m_PointsPerRed; } }
+        public int PointsPerYellow { get { return m_PointsPerYellow; } }
+        public int PointsPerPenaltyMiss { get { return m_PointPerPenaltyMiss; } }
 
         public float AssistPerMinute
         {
@@ -269,6 +277,15 @@ namespace FantasyPremierLeagueApi.Model.Player
             {
                 return ((MinutesPlayed == 0) ? 
                     0 : (((float) PenaltiesMissed / (float) GamesPlayed) * (float) m_PointPerPenaltyMiss)); 
+            }
+        }
+
+        public float OwnGoalsPointsPerGame
+        {
+            get
+            {
+                return ((MinutesPlayed == 0) ?
+                    0 : (((float)OwnGoals / (float)GamesPlayed) * (float)m_PointsPerOwnGoal)); 
             }
         }
 
