@@ -94,7 +94,11 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.FantasyScout
                     result.Add(club, playerDict);
                 }
 
-                playerDict.Add(playerName, returnDate);
+                if (playerDict.ContainsKey(playerName))
+                    _logger.WriteErrorMessage(string.Format("Injury news already container entry for {0}({1})", playerName, clubName));
+                else
+                    playerDict.Add(playerName, returnDate);
+
                 var i = 1;
             }
 
