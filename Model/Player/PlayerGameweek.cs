@@ -73,7 +73,7 @@ namespace FantasyPremierLeagueApi.Model.Player
             EASportsPPI = (int) (long)  stats[15];
             NetTransers = (int) (long)  stats[16];
             Value = (int) (long)  stats[17];
-            Points = (int) (long) stats[18];
+            Points = (int) (long) stats[19];
         }
 
     }
