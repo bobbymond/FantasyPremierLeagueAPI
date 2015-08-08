@@ -66,7 +66,7 @@ namespace FantasyPremierLeagueApi.Api
         /// <summary>This method returns a map of club to their league performance for the specified season</summary>
         /// <param name="season">A string in the form 2012-2013</param>
         /// <returns>A dictionary mapping club to their ClubSeasonPerformance object</returns>
-        public Dictionary<IClub, ClubSeasonPerformance> GetClubSeasonPerformances(string season = "2012-2013")
+        public Dictionary<IClub, ClubSeasonPerformance> GetClubSeasonPerformances(string season = "2015-2016")
         {
             CheckAndCreateSession();
             var reader = new LeagueTableRetriever(_logger);

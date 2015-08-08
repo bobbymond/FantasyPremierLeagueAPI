@@ -52,8 +52,8 @@ namespace FantasyPremierLeagueApi.Api
         {
             var api = new FantasyPremierLeagueApi(TestConstants.USERNAME, TestConstants.PASSWORD, _logger);
 
-            var lastSeason = api.GetClubSeasonPerformances("2013-2014");
-            var thisSeason = api.GetClubSeasonPerformances("2014-2015");
+            var lastSeason = api.GetClubSeasonPerformances("2014-2015");
+            var thisSeason = api.GetClubSeasonPerformances("2013-2014");
 
             _logger.WriteInfoMessage("Last season's league performance by club: " +
                     JsonConvert.SerializeObject(lastSeason));

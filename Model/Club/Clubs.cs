@@ -115,6 +115,29 @@ namespace FantasyPremierLeagueApi.Model.Club
         }
 
         [Serializable]
+        public sealed class Bournemouth : AbstractClub
+        {
+            #region Singleton Pattern
+
+            private static readonly Bournemouth _instance = new Bournemouth();
+
+            private Bournemouth() { }
+
+            public static Bournemouth Instance
+            {
+                get
+                {
+                    return _instance;
+                }
+            }
+
+            #endregion
+
+            public override string FullName { get { return "Bournemouth"; } }
+            public override string ShortCode { get { return "BOU"; } }
+        }
+
+        [Serializable]
         public sealed class Burnley : AbstractClub
         {
             #region Singleton Pattern
@@ -588,6 +611,31 @@ namespace FantasyPremierLeagueApi.Model.Club
             public override string ShortCode { get { return "SWA"; } }
         }
 
+
+        [Serializable]
+        public sealed class Watford : AbstractClub
+        {
+            #region Singleton Pattern
+
+            private static readonly Watford _instance = new Watford();
+
+            private Watford() { }
+
+            public static Watford Instance
+            {
+                get
+                {
+                    return _instance;
+                }
+            }
+
+            #endregion
+
+            public override string FullName { get { return "Watford"; } }
+
+            public override string ShortCode { get { return "WAT"; } }
+        }
+
         [Serializable]
         public sealed class WestBrom : AbstractClub
         {
@@ -669,6 +717,7 @@ namespace FantasyPremierLeagueApi.Model.Club
         private static IEnumerable<IClub> allClubs = new List<IClub> {
             Arsenal.Instance,
             AstonVilla.Instance,
+            Bournemouth.Instance,
             Burnley.Instance,
             Cardiff.Instance,
             Chelsea.Instance,
@@ -689,6 +738,7 @@ namespace FantasyPremierLeagueApi.Model.Club
             Stoke.Instance,
             Sunderland.Instance,
             Swansea.Instance,
+            Watford.Instance,
             WestBrom.Instance,
             WestHam.Instance,
             Wigan.Instance

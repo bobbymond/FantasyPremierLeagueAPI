@@ -63,8 +63,7 @@ namespace FantasyPremierLeagueApi.Test.ApiTests
             var api = new FantasyScoutApi(_logger);
 
             var expectedReturnDates = api.GetExpectedReturnDatesByTeam();
-            
-            _logger.WriteInfoMessage("Ospina back: " + expectedReturnDates[Clubs.Arsenal.Instance]["Ospina"].ToShortDateString());
+
         }
     }
 }

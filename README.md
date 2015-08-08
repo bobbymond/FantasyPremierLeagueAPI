@@ -1,6 +1,6 @@
 FantasyPremierLeagueAPI
 =======================
-Copyright (c) 2013 Mark Hammond.  See license.txt for license.
+Copyright (c) 2013,2014,2015 Mark Hammond.  See license.txt for license.
 
 Overview
 --------
