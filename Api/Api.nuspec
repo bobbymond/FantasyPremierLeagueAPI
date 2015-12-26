@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/bobbymond/FantasyPremierLeagueAPI/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/bobbymond/FantasyPremierLeagueAPI</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>See: https://github.com/bobbymond/FantasyPremierLeagueAPI</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Fantasy Football FantasyPremierLeague FPL FantasyFootball</tags>
+  </metadata>
+</package>

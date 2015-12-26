@@ -1,5 +1,5 @@
 #region license
-// Copyright (c) 2013 Mark Hammond
+// Copyright (c) 2015 Mark Hammond
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -32,17 +32,17 @@ namespace FantasyPremierLeagueApi.Model.Player
         private const int m_PointsPerGoal = 6;
         private const int m_PointsPerCleanSheet = 4;
         private const int m_PointPer2GoalsConceded = -1;
-        private const float m_PointsPerSave = (float) 1 / (float) 3;
+        private const float m_PointsPerThreeSaves = (float) 1;
         private const float m_PointsPerPenaltySave = 5;
 
         public Goalkeeper(RawPlayerStats stats) : base(stats) {}
 
-        public float AverageSavePointsPerGame
+        public float AverageSavesPerGame
         {
             get 
             {
                 if (MinutesPlayed == 0) return 0;
-                else return ((float) Saves / (float) GamesPlayed) * m_PointsPerSave; 
+                else return ((float) Saves / (float) GamesPlayed); 
             }
         }
 
@@ -70,9 +70,9 @@ namespace FantasyPremierLeagueApi.Model.Player
             get { return m_PointPer2GoalsConceded; }
         }
 
-        public float PointsPerSave
+        public float PointsPerThreeSaves
         {
-            get { return m_PointsPerSave; }
+            get { return m_PointsPerThreeSaves; }
         }
 
         public float PointsPerPenaltySave
