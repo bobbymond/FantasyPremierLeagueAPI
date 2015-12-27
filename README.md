@@ -7,12 +7,12 @@ Overview
 FantasyPremierLeague API is an unofficial c# library allowing convenient access to data from the popular Fantasy Premier League game (fantasy.premierleague.com).
 It is intended for use by people wishing to write algorithms to pick their team programmatically.
 
-Read the [https://github.com/bobbymond/FantasyPremierLeagueAPI/wiki](wiki)
+Read the [wiki](https://github.com/bobbymond/FantasyPremierLeagueAPI/wiki)
 
 tl;dr
 -----
- * Read the [https://github.com/bobbymond/FantasyPremierLeagueAPI/blob/master/LICENSE.txt](License) (MIT)
- * Install the [https://www.nuget.org/packages/FantasyPremierLeagueApi.Api/](NuGet Package)
+ * Read the [License](https://github.com/bobbymond/FantasyPremierLeagueAPI/blob/master/LICENSE.txt) (MIT)
+ * Install the [NuGet Package] (https://www.nuget.org/packages/FantasyPremierLeagueApi.Api/)
 
  
 If cloning
