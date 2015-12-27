@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("FantasyPremierLeagueApi")]
-[assembly: AssemblyDescription("FantasyPremierLeague API is an unofficial c# library allowing convenvient access to data from the popular Fantasy Premier League game (fantasy.premierleague.com). It is intended for use by people wishing to write algorithms to pick their team programmatically.")]
+[assembly: AssemblyDescription("FantasyPremierLeague API is an unofficial c# library allowing convenient access to data from the popular Fantasy Premier League game (fantasy.premierleague.com). It is intended for use by people wishing to write algorithms to pick their team programmatically.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mark Hammond")]
 [assembly: AssemblyProduct("FantasyPremierLeagueApi")]
