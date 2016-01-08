@@ -66,8 +66,8 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Pages
             htmlDoc.LoadHtml(_transfersPageHtmlString);
             var ismToSpendElement = htmlDoc.GetElementbyId("ismToSpend");
 
-            var remainingBudgetStr = ismToSpendElement.InnerText.TrimStart('£');
-            return decimal.Parse(remainingBudgetStr);
+            var remainingBudgetStr = ismToSpendElement.InnerText.TrimStart('£').Replace(',', '.');
+            return decimal.Parse(remainingBudgetStr, System.Globalization.CultureInfo.InvariantCulture);
         }
     }
 }
