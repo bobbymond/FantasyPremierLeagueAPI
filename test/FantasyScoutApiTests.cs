@@ -25,14 +25,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FantasyPremierLeagueApi.Api;
+using FantasyPremierLeagueApi;
 using FantasyPremierLeagueApi.Helpers.Logger;
 using Newtonsoft.Json;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using FantasyPremierLeagueApi.Model.Club;
 
-namespace FantasyPremierLeagueApi.Test.ApiTests
+namespace FantasyPremierLeagueApi
 {
     [TestClass()]
     public class FantasyScoutApiTests

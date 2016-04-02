@@ -26,6 +26,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FantasyPremierLeagueApi.Helpers.Logger;
+using FantasyPremierLeagueApi;
 
 namespace FantasyPremierLeagueApi.Helpers.WebRetriever
 {
@@ -33,8 +34,13 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever
     public class FantasyPremierLeagueAuthenticatorTests
     {
         public const ConsoleLogger.LogLevel     TESTS_LOGGER_LEVEL  = ConsoleLogger.LogLevel.Info;
-        public const string                     USERNAME            = "username@email.com";
-        public const string                     PASSWORD            = "password";
+
+        [TestInitialize]
+        public void Setup()
+        {
+            if (TestConstants.USERNAME == "change.me@blah.com")
+                Assert.Inconclusive("Please update TestConstants.cs before running these tests");
+        }
 
         [TestMethod]
         public void TestAuthenticate()
@@ -42,7 +48,7 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever
             var logger = new ConsoleLogger();
             var authenticator = new FantasyPremierLeagueAuthenticator(logger);
 
-            var cookies = authenticator.Authenticate(USERNAME, PASSWORD);
+            var cookies = authenticator.Authenticate(TestConstants.USERNAME, TestConstants.PASSWORD);
 
             Assert.IsNotNull(cookies);
             Assert.IsTrue(cookies.Count > 0);

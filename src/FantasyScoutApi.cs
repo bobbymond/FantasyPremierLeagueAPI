@@ -28,7 +28,7 @@ using FantasyPremierLeagueApi.Helpers.Logger;
 using FantasyPremierLeagueApi.Model.Club;
 using FantasyPremierLeagueApi.Helpers.WebRetriever.FantasyScout;
 
-namespace FantasyPremierLeagueApi.Api
+namespace FantasyPremierLeagueApi
 {
     public class FantasyScoutApi
     {

@@ -26,7 +26,7 @@ using System.Linq;
 using System.Text;
 using FantasyPremierLeagueApi.Helpers.Logger;
 
-namespace FantasyPremierLeagueApi.Api
+namespace FantasyPremierLeagueApi
 {
     public static class TestConstants
     {

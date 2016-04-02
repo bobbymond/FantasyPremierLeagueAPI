@@ -12,10 +12,11 @@ Read the [wiki](https://github.com/bobbymond/FantasyPremierLeagueAPI/wiki)
 tl;dr
 -----
  * Read the [License](https://github.com/bobbymond/FantasyPremierLeagueAPI/blob/master/LICENSE.txt) (MIT)
- * Install the [NuGet Package] (https://www.nuget.org/packages/FantasyPremierLeagueApi.Api/)
+ * Install the [NuGet Package] (https://www.nuget.org/packages/FantasyPremierLeagueApi/)
 
  
 If cloning
 ----------
- * Try the tests in FantasyPremierLeagueApi.Api.Test (these are MStests)
- * You will need to configure your username/password in FantasyPremierLeagueApi.Api.Test\TestConstants.cs
+ * Run build.cmd to build 
+ * Try the tests in FantasyPremierLeagueApi.Test (these are MStests)
+ * You will need to configure your username/password in FantasyPremierLeagueApi.Test\TestConstants.cs

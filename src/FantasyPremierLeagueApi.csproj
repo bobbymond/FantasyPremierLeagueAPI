@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A75D3A26-81AC-4144-821F-2D390FC60C6A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FantasyPremierLeagueApi</RootNamespace>
+    <AssemblyName>FantasyPremierLeagueApi</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\build\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\FantasyPremierLeagueApi.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>packages\HtmlAgilityPack.1.4.9\lib\Net40\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.8.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FantasyPremierLeagueApi.cs" />
+    <Compile Include="FantasyScoutApi.cs" />
+    <Compile Include="Helpers\Logger\ConsoleLogger.cs" />
+    <Compile Include="Helpers\Logger\ILogger.cs" />
+    <Compile Include="Model\ClubSeasonPerformance.cs" />
+    <Compile Include="Model\Club\AbstractClub.cs" />
+    <Compile Include="Model\Club\Clubs.cs" />
+    <Compile Include="Model\Club\IClub.cs" />
+    <Compile Include="Model\Fixture.cs" />
+    <Compile Include="Model\Player\Defender.cs" />
+    <Compile Include="Model\Player\Enums.cs" />
+    <Compile Include="Model\Player\Forward.cs" />
+    <Compile Include="Model\Player\Goalkeeper.cs" />
+    <Compile Include="Model\Player\Midfielder.cs" />
+    <Compile Include="Model\Player\Player.cs" />
+    <Compile Include="Model\Player\PlayerGameweek.cs" />
+    <Compile Include="Model\Player\PlayerGameweekHistory.cs" />
+    <Compile Include="Model\Player\PlayerSeasonPerformance.cs" />
+    <Compile Include="Model\Player\RawPlayerStats.cs" />
+    <Compile Include="Model\Result.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\WebRetriever\FantasyPremierLeagueAuthenticator.cs" />
+    <Compile Include="Helpers\WebRetriever\FantasyScout\InjuryNewsRetriever.cs" />
+    <Compile Include="Helpers\WebRetriever\FantasyScout\TeamNewsRetriever.cs" />
+    <Compile Include="Helpers\WebRetriever\Pages\HomepageRetriever.cs" />
+    <Compile Include="Helpers\WebRetriever\Pages\LeagueTableRetriever.cs" />
+    <Compile Include="Helpers\WebRetriever\Pages\PlayerStatsRetriever.cs" />
+    <Compile Include="Helpers\WebRetriever\Pages\TransferPageRetriever.cs" />
+    <Compile Include="Helpers\WebRetriever\WebPageRequester.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

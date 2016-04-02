@@ -30,12 +30,19 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-namespace FantasyPremierLeagueApi.Api
+namespace FantasyPremierLeagueApi
 {
     [TestClass()]
     public class FantasyPremierLeagueApiTests
     {
         private static ConsoleLogger _logger = new ConsoleLogger(TestConstants.TESTS_LOGGER_LEVEL);
+
+        [TestInitialize]
+        public void Setup()
+        {
+            if (TestConstants.USERNAME == "change.me@blah.com")
+                Assert.Inconclusive("Please update TestConstants.cs before running these tests");
+        }
 
         [TestMethod]
         public void TestGetGameweekNumber()
