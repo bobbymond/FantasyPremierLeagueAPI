@@ -59,7 +59,9 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.FantasyScout
             htmlDoc.LoadHtml(response);
 
             var contentElement = htmlDoc.GetElementbyId("content");
-            var injuriesTableBody = contentElement.SelectSingleNode("//table[@class='ffs-ib ffs-ib-full-content ffs-ib-sort']/tbody");
+            //var injuriesTableBody = contentElement.SelectSingleNode("//table[@class='ffs-ib ffs-ib-full-content ffs-ib-sort']/tbody");
+            var injuriesTableBody = contentElement.SelectSingleNode("//table[@class='ffs-ib respond ffs-ib-full-content ffs-ib-sort']/tbody");
+           
 
             var items = injuriesTableBody.Elements("tr"); // force evaluation
 
