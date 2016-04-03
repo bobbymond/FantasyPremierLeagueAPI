@@ -8,14 +8,14 @@ if "%nuget%" == "" (
 	set nuget=nuget
 )
 
-set msbuild="%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild"
-if "%MsBuildExe%" NEQ "" (
-  set msbuild= %MsBuildExe%
+set msbuildpath="%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild"
+if "%MsBuildExe%" == "" (
+  set msbuildpath=  %MsBuildExe%
 )
 
 %nuget% restore src\FantasyPremierLeagueApi.sln
 
-%msbuild% src\FantasyPremierLeagueApi.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log /nr:false
+%msbuildpath% src\FantasyPremierLeagueApi.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log /nr:false
 
 mkdir build
 
