@@ -7,13 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B62B40F0-B035-44A4-88A3-326CB5424751}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyPremierLeagueApi", "FantasyPremierLeagueApi.csproj", "{A75D3A26-81AC-4144-821F-2D390FC60C6A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyPremierLeagueApi.Test", "..\test\FantasyPremierLeagueApi.Test.csproj", "{8A0047F2-53B5-4CE7-9277-BB31528023B7}"
