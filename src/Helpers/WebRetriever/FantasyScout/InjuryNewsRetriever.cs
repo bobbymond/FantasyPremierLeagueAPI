@@ -100,8 +100,6 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.FantasyScout
                     _logger.WriteErrorMessage(string.Format("Injury news already container entry for {0}({1})", playerName, clubName));
                 else
                     playerDict.Add(playerName, returnDate);
-
-                var i = 1;
             }
 
             return result;

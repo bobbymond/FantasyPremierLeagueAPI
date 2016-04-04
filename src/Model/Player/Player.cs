@@ -78,7 +78,6 @@ namespace FantasyPremierLeagueApi.Model.Player
                     break;
                 default:
                     throw new ApplicationException("Unknown status: " + stats.AvailabilityStatusString);
-                    break;
             }
 
             try

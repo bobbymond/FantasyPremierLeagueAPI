@@ -43,6 +43,7 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Pages
             _logger = logger;
         }
 
+        /// <param name="cookies"></param>
         /// <param name="season">A string in the form 2012-2013</param>
         public IEnumerable<ClubSeasonPerformance> GetLeagueTable(CookieContainer cookies, string season)
         {

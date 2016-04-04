@@ -63,6 +63,7 @@ namespace FantasyPremierLeagueApi.Model
         /// ]
         /// 
         /// </summary>
+        /// <param name="team"></param>
         /// <param name="fixtureInfo"></param>
         public Fixture(IClub team, string[] fixtureInfo)
         {
