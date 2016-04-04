@@ -81,9 +81,13 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.FantasyScout
         private IEnumerable<string> ParseExpectedTeam(HtmlNode item)
         {
             //var playerNodes = item.FirstChild.SelectNodes("//li/span[@class='player-name']");
-            var playerNodes = item
-                .Descendants("div")
-                .ToArray()[1]
+            var teamDivs = item
+                .Descendants("div");
+
+             var playersDiv = teamDivs
+                .ToArray()[2];
+
+            var playerNodes = playersDiv
                 .Descendants("ul").SelectMany(x => x.SelectNodes("li/span[@class='player-name']"));
                 
             return playerNodes.Select(node => node.InnerText);

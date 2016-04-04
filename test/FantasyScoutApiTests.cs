@@ -49,6 +49,8 @@ namespace FantasyPremierLeagueApi
             _logger.WriteInfoMessage("Expected teams: " +
                     JsonConvert.SerializeObject(expectedTeams));
 
+             Assert.IsTrue(expectedTeams.Sum(team => team.Value.Count()) > 0, "No expected players found");
+
             // test serialize
             var formatter = new BinaryFormatter();
             using (var fs = new MemoryStream())
