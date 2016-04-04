@@ -1,4 +1,3 @@
-REM @echo Off
 set config=%1
 if "%config%" == "" (
    set config=Release
@@ -14,16 +13,16 @@ if "%nuget%" == "" (
 	set nuget=nuget
 )
 
-set msbuildPath=%MsBuildExe%
+set msbuildPath="%MsBuildExe%"
 if msbuildPath == "" (
-   set msbuildExe= "%programfiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe""
+   set msbuildPath= "%programfiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe"
 )
 
 REM Restore dependent packages
 call %nuget% restore src\FantasyPremierLeagueApi.sln
 
 REM Build
-%msbuildExe% src\FantasyPremierLeagueApi.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
+%msbuildPath% src\FantasyPremierLeagueApi.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
 
 REM Package
 mkdir build
