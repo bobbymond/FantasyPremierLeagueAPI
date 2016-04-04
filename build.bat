@@ -20,7 +20,7 @@ if msbuildPath == "" (
 )
 
 REM Restore dependent packages
-%nuget% restore src\FantasyPremierLeagueApi.sln
+call %nuget% restore src\FantasyPremierLeagueApi.sln
 
 REM Build
 %msbuildExe% src\FantasyPremierLeagueApi.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
