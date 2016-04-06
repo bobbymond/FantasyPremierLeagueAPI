@@ -33,7 +33,7 @@ using FantasyPremierLeagueApi.Model.Club;
 using FantasyPremierLeagueApi.Helpers.WebRetriever.Pages;
 using FantasyPremierLeagueApi.Model.Player;
 
-namespace FantasyPremierLeagueApi
+namespace FantasyPremierLeagueApi.Api
 {
     public class FantasyPremierLeagueApi
     {

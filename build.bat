@@ -14,8 +14,8 @@ if "%nuget%" == "" (
 )
 
 set msbuildPath="%MsBuildExe%"
-if msbuildPath == "" (
-   set msbuildPath= "%programfiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe"
+if %msbuildPath% == "" (
+   set msbuildPath= "%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild"
 )
 
 REM Restore dependent packages
@@ -26,4 +26,4 @@ REM Build
 
 REM Package
 mkdir build
-call %nuget% pack "src\FantasyPremierLeagueApi.csproj" -IncludeReferencedProjects -o build -p Configuration=%config% %version%
+call %nuget% pack "src\Api.csproj" -IncludeReferencedProjects -o build -p Configuration=%config% %version%

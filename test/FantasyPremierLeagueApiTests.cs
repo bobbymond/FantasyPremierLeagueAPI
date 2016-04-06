@@ -30,7 +30,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-namespace FantasyPremierLeagueApi
+namespace FantasyPremierLeagueApi.Api
 {
     [TestClass()]
     public class FantasyPremierLeagueApiTests

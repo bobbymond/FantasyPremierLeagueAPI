@@ -31,6 +31,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using FantasyPremierLeagueApi.Model.Club;
+using FantasyPremierLeagueApi.Api;
 
 namespace FantasyPremierLeagueApi
 {

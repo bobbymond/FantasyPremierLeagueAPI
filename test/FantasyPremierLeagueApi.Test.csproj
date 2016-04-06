@@ -57,9 +57,9 @@
     <Compile Include="Helpers\WebRetriever\FantasyPremierLeagueAuthenticatorTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\FantasyPremierLeagueApi.csproj">
+    <ProjectReference Include="..\src\Api.csproj">
       <Project>{A75D3A26-81AC-4144-821F-2D390FC60C6A}</Project>
-      <Name>FantasyPremierLeagueApi</Name>
+      <Name>Api</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
