@@ -29,47 +29,61 @@ using Newtonsoft;
 using FantasyPremierLeagueApi.Helpers.Logger;
 using FantasyPremierLeagueApi.Model.Player;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Pages
 {
     public class PlayerStatsRetriever
     {
-        public  const   int     MAXPLAYER_ID        = 700;
-
-        private const   string  _PLAYERSTATS_PAGE   = "http://fantasy.premierleague.com/web/api/elements";
+        private const   string  ELEMENTS_PAGE   = "https://fantasy.premierleague.com/drf/elements";
         private         ILogger _logger;
+        private         JArray  _jsonData;
 
         public PlayerStatsRetriever(ILogger logger)
         {
             _logger = logger;
+
+            var requester = new WebPageRequester(_logger);
+            CookieContainer cookies = null;
+            var json = requester.Get(ELEMENTS_PAGE, ref cookies);
+            _jsonData = JArray.Parse(json);
+        }
+
+        public IEnumerable<Player> GetAllPlayerStats()
+        {
+            if (_jsonData != null)
+            {
+                foreach (var token in _jsonData)
+                {
+                    var rawStats = token.ToObject<RawPlayerStats>();
+
+                    var position = (Enums.Position)Enum.Parse(typeof(Enums.Position), rawStats.PositionString);
+
+                    switch (position)
+                    {
+                        case Enums.Position.Goalkeeper:
+                            yield return new Goalkeeper(rawStats);
+                            break;
+                        case Enums.Position.Defender:
+                            yield return new Defender(rawStats);
+                            break;
+                        case Enums.Position.Midfielder:
+                            yield return new Midfielder(rawStats);
+                            break;
+                        case Enums.Position.Forward:
+                            yield return new Forward(rawStats);
+                            break;
+                        default:
+                            throw new ApplicationException("Unknown position " + position);
+                    }
+                }
+            }
         }
 
         public Player GetPlayerStats(int playerId)
         {
-            var requester = new WebPageRequester(_logger);
-
-            var url = string.Format("{0}/{1}/", _PLAYERSTATS_PAGE, playerId);
-
-            CookieContainer cookies = null;
-            var response = requester.Get(url, ref cookies);
-
-            var rawStats = JsonConvert.DeserializeObject<RawPlayerStats>(response);
-
-            var position = (Enums.Position)Enum.Parse(typeof(Enums.Position), rawStats.PositionString);
-
-            switch (position)
-            {
-                case Enums.Position.Goalkeeper:
-                    return new Goalkeeper(rawStats);
-                case Enums.Position.Defender:
-                    return new Defender(rawStats);
-                case Enums.Position.Midfielder:
-                    return new Midfielder(rawStats);
-                case Enums.Position.Forward:
-                    return new Forward(rawStats);
-                default:
-                    throw new ApplicationException("Unknown position " + position);
-            }
+            var player = GetAllPlayerStats().FirstOrDefault(x => x.Id == playerId);
+            return player;
         }
     }
 }
