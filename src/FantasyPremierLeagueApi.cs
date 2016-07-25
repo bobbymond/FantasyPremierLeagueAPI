@@ -89,25 +89,28 @@ namespace FantasyPremierLeagueApi.Api
         public IEnumerable<Player> GetAllPlayers()
         {
             var reader = GetPlayerStatsRetriever();
+            var players = reader.GetAllPlayerStats();
 
-            for (int i = 1; i <= PlayerStatsRetriever.MAXPLAYER_ID; i++)
+            if (players != null)
             {
-                try
+                foreach (var player in players)
                 {
-                    if (!_allPlayersCache.ContainsKey(i))
+                    try
                     {
-                        var player = reader.GetPlayerStats(i);
-                        _allPlayersCache.Add(i, player);
+                        if (!_allPlayersCache.ContainsKey(player.Id))
+                        {
+                            _allPlayersCache.Add(player.Id, player);
+                        }
                     }
-                }
-                catch (ApplicationException ae)
-                {
-                    Logger.WriteErrorMessage(string.Format("Error getting player stats for player id {0}: {1}\r\n{2}", i, ae.Message, ae.StackTrace));
-                }
-                catch (Exception e)
-                {
-                    // some of the ids may throw - only log to debug logger
-                    Logger.WriteDebugMessage(string.Format("Error getting player stats for player id {0}: {1}\r\n{2}", i, e.Message, e.StackTrace));
+                    catch (ApplicationException ae)
+                    {
+                        Logger.WriteErrorMessage(string.Format("Error getting player stats for player id {0}: {1}\r\n{2}", player.Id, ae.Message, ae.StackTrace));
+                    }
+                    catch (Exception e)
+                    {
+                        // some of the ids may throw - only log to debug logger
+                        Logger.WriteDebugMessage(string.Format("Error getting player stats for player id {0}: {1}\r\n{2}", player.Id, e.Message, e.StackTrace));
+                    }
                 }
             }
 
@@ -124,7 +127,7 @@ namespace FantasyPremierLeagueApi.Api
         public Player GetPlayer(int id, PlayerStatsRetriever reader = null)
         {
             if (reader == null)
-                reader = new PlayerStatsRetriever(Logger);
+                reader = GetPlayerStatsRetriever();
 
             if (!_allPlayersCache.ContainsKey(id))
             {
