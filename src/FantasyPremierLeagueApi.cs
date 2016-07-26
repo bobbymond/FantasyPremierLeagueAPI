@@ -64,7 +64,7 @@ namespace FantasyPremierLeagueApi.Api
         /// <returns>The current gameweek as defined by Fantasy Premier League</returns>
         public int GetGameweekNumber()
         {
-            CheckAndCreateSession();
+            //CheckAndCreateSession();
             var reader = GetHomepageRetriever();
             var result = reader.GetCurrentGameweek(_session);
             return result;
