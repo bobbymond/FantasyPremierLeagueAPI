@@ -56,6 +56,7 @@
     <Compile Include="FantasyScoutApi.cs" />
     <Compile Include="Helpers\Logger\ConsoleLogger.cs" />
     <Compile Include="Helpers\Logger\ILogger.cs" />
+    <Compile Include="Helpers\WebRetriever\FantasyPremierLeague2016Authenticator.cs" />
     <Compile Include="Helpers\WebRetriever\Pages\TeamRetriever.cs" />
     <Compile Include="Model\ClubSeasonPerformance.cs" />
     <Compile Include="Model\Club\RawTeamStats.cs" />
