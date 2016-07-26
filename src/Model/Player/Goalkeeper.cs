@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using FantasyPremierLeagueApi.Model.Club;
 
 namespace FantasyPremierLeagueApi.Model.Player
 {
@@ -35,7 +36,7 @@ namespace FantasyPremierLeagueApi.Model.Player
         private const float m_PointsPerThreeSaves = (float) 1;
         private const float m_PointsPerPenaltySave = 5;
 
-        public Goalkeeper(RawPlayerStats stats) : base(stats) {}
+        public Goalkeeper(RawPlayerStats stats, IClub club) : base(stats, club) {}
 
         public float AverageSavesPerGame
         {

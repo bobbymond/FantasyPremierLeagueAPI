@@ -37,8 +37,8 @@ namespace FantasyPremierLeagueApi.Model.Player
         [JsonProperty("web_name")]
         public string Name { get; set; }
 
-        [JsonProperty("team_name")]
-        public string TeamName { get; set; }
+        [JsonProperty("team")]
+        public int TeamId { get; set; }
 
         [JsonProperty("now_cost")]
         public int Value { get; set; }
@@ -61,8 +61,8 @@ namespace FantasyPremierLeagueApi.Model.Player
         [JsonProperty("fixtures")]
         public RawFixtures Fixtures { get; set; }
 
-        [JsonProperty("type_name")]
-        public string PositionString { get; set; }
+        [JsonProperty("element_type")]
+        public string ElementTypeString { get; set; }
 
         [JsonProperty("season_history")]
         public object[][] SeasonHistory { get; set; }
