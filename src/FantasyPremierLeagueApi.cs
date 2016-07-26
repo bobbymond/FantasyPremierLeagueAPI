@@ -46,6 +46,7 @@ namespace FantasyPremierLeagueApi.Api
         
         private         HomepageRetriever                           _homepageRetriever;
         private         LeagueTableRetriever                        _leagueTableRetriever;
+        private         TeamRetriever                               _teamRetriever;
         private         PlayerStatsRetriever                        _playerStatsRetriever;
         private         TransferPageRetriever                       _transferPageRetriever;
 
@@ -195,11 +196,22 @@ namespace FantasyPremierLeagueApi.Api
             return _leagueTableRetriever;
         }
 
+        protected virtual TeamRetriever GetTeamRetriever()
+        {
+            if (_teamRetriever == null)
+            {
+                _teamRetriever = new TeamRetriever(Logger);
+            }
+
+            return _teamRetriever;
+        }
+
         protected virtual PlayerStatsRetriever GetPlayerStatsRetriever()
         {
             if (_playerStatsRetriever == null)
             {
-                _playerStatsRetriever = new PlayerStatsRetriever(Logger);
+                var teamRetriever = GetTeamRetriever();
+                _playerStatsRetriever = new PlayerStatsRetriever(Logger, teamRetriever);
             }
 
             return _playerStatsRetriever;

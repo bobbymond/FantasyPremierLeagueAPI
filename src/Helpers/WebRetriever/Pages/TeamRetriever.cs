@@ -27,23 +27,22 @@ using System.Net;
 using System.Text;
 using Newtonsoft;
 using FantasyPremierLeagueApi.Helpers.Logger;
+using FantasyPremierLeagueApi.Model.Club;
 using FantasyPremierLeagueApi.Model.Player;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Pages
 {
-    public class PlayerStatsRetriever
+    public class TeamRetriever
     {
-        private const   string  ELEMENTS_PAGE   = "https://fantasy.premierleague.com/drf/elements";
+        private const   string  ELEMENTS_PAGE   = "https://fantasy.premierleague.com/drf/teams";
         private         ILogger _logger;
         private         JArray  _jsonData;
-        private readonly TeamRetriever _teamRetriever;
 
-        public PlayerStatsRetriever(ILogger logger, TeamRetriever teamRetriever = null)
+        public TeamRetriever(ILogger logger)
         {
             _logger = logger;
-            _teamRetriever = teamRetriever ?? new TeamRetriever(_logger);
 
             var requester = new WebPageRequester(_logger);
             CookieContainer cookies = null;
@@ -51,41 +50,22 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Pages
             _jsonData = JArray.Parse(json);
         }
 
-        public IEnumerable<Player> GetAllPlayerStats()
+        public IEnumerable<Team> GetAllTeams()
         {
             if (_jsonData != null)
             {
                 foreach (var token in _jsonData)
                 {
-                    var rawStats = token.ToObject<RawPlayerStats>();
-                    var elementType = int.Parse(rawStats.ElementTypeString) - 1;
-                    var position = (Enums.Position) elementType;
-                    var club = _teamRetriever?.GetTeam(rawStats.TeamId);
-
-                    switch (position)
-                    {
-                        case Enums.Position.Goalkeeper:
-                            yield return new Goalkeeper(rawStats, club);
-                            break;
-                        case Enums.Position.Defender:
-                            yield return new Defender(rawStats, club);
-                            break;
-                        case Enums.Position.Midfielder:
-                            yield return new Midfielder(rawStats, club);
-                            break;
-                        case Enums.Position.Forward:
-                            yield return new Forward(rawStats, club);
-                            break;
-                        default:
-                            throw new ApplicationException("Unknown position " + position);
-                    }
+                    var rawStats = token.ToObject<RawTeamStats>();
+                    var team = new Team(rawStats);
+                    yield return team;
                 }
             }
         }
 
-        public Player GetPlayerStats(int playerId)
+        public Team GetTeam(int teamId)
         {
-            var player = GetAllPlayerStats().FirstOrDefault(x => x.Id == playerId);
+            var player = GetAllTeams().FirstOrDefault(x => x.Id == teamId);
             return player;
         }
     }

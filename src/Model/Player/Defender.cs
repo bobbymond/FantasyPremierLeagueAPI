@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using FantasyPremierLeagueApi.Model.Club;
 
 namespace FantasyPremierLeagueApi.Model.Player
 {
@@ -33,7 +34,7 @@ namespace FantasyPremierLeagueApi.Model.Player
         private const int m_PointsPerCleanSheet = 4;
         private const int m_PointPer2GoalsConceded = -1;
 
-        public Defender(RawPlayerStats stats) : base(stats) {}
+        public Defender(RawPlayerStats stats, IClub club) : base(stats, club) {}
 
         override public int PointsPerGoal
         {
