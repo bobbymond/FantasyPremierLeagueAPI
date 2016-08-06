@@ -27,12 +27,13 @@ using System.Text;
 using System.Net;
 using HtmlAgilityPack;
 using FantasyPremierLeagueApi.Helpers.Logger;
+using Newtonsoft.Json.Linq;
 
 namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Page
 {
     public class HomepageRetriever
     {
-        private const   string  _URL_HOMEPAGE = "http://fantasy.premierleague.com";
+        private const   string  EVENTS_URL      = "https://fantasy.premierleague.com/drf/events";
         private         ILogger _logger;
 
         public HomepageRetriever(ILogger logger)
@@ -43,19 +44,19 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Page
         public int GetCurrentGameweek(CookieContainer cookies)
         {
             var requester = new WebPageRequester(_logger);
-
-            var response = requester.Get(_URL_HOMEPAGE, ref cookies);
-
-            var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(response);
-            var ismElement = htmlDoc.GetElementbyId("ism");
-            var ismEventInfoPrimary = ismElement.SelectSingleNode("//div[@class='ism-event-info']");
-            if (ismEventInfoPrimary == null) // hack for now - see if this still works once gameweek 1 starts :-)
-                return 0;
-            var ismMegaLargeParagraph = ismEventInfoPrimary.SelectSingleNode("//h3[@class='ism-event-info__sub-heading ism-pl-font']");
-            var gameweekNum = ismMegaLargeParagraph.InnerText.Replace("Gameweek", "").Trim();
-
-            return int.Parse(gameweekNum);
+            var json = requester.Get(EVENTS_URL, ref cookies);
+            var events = JArray.Parse(json);
+            if (events != null)
+            {
+                foreach (var obj in events.OfType<JObject>())
+                {
+                    var nr = obj.Property("id").Value.ToObject<int>();
+                    var finished = obj.Property("finished").Value.ToObject<bool>();
+                    if (!finished)
+                        return nr;
+                }
+            }
+            return 0;
         }
 
     }

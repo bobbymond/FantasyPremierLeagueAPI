@@ -1,4 +1,4 @@
-#region license
+﻿#region license
 // Copyright (c) 2015 Mark Hammond
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,35 +22,50 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using FantasyPremierLeagueApi.Model.Club;
 
-namespace FantasyPremierLeagueApi.Model.Player
+namespace FantasyPremierLeagueApi.Model.Club
 {
     [Serializable]
-    public class Midfielder : Player
+    public class Team : IClub
     {
-        private const int m_PointsPerGoal = 5;
-        private const int m_PointsPerCleanSheet = 1;
-        private const int m_PointPer2GoalsConceded = 0;
+        private readonly RawTeamStats _stats;
 
-        public Midfielder(RawPlayerStats stats, IClub club) : base(stats, club) {}
-
-        override public int PointsPerGoal
+        public Team(RawTeamStats stats)
         {
-            get { return m_PointsPerGoal; }
+            if (stats == null)
+                throw new ArgumentNullException(nameof(stats));
+            _stats = stats;
         }
 
-        override public int PointsPerCleanSheet
+        public int Id { get { return _stats.Id; } }
+        public string FullName  { get { return _stats.Name; } }
+        public string ShortCode { get { return _stats.ShortCode; } }
+        public virtual List<string> AltNames { get { return null; } }
+        
+
+        public RawTeamStats GetStats()
         {
-            get { return m_PointsPerCleanSheet; }
+            return _stats;
         }
 
-        override public int PointsPer2GoalsConceded
-        {
-            get { return m_PointPer2GoalsConceded; }
-        }
-            
 
+        public override int GetHashCode()
+        {
+            return ShortCode.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var team = obj as Team;
+            if (team == null) return false;
+            return ShortCode == team.ShortCode;
+        }
+
+        public override string ToString()
+        {
+            return ShortCode;
+        }
     }
 }

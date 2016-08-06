@@ -37,17 +37,22 @@ namespace FantasyPremierLeagueApi.Api
 {
     public class FantasyPremierLeagueApi
     {
-        private         ILogger                                     _logger;
+        protected       ILogger                                     Logger { get; private set; }
+
         private         CookieContainer                             _session;
         private         Dictionary<int, Player>                     _allPlayersCache;
         private         string                                      _username;
         private         string                                      _password;
-
+        
+        private         HomepageRetriever                           _homepageRetriever;
+        private         LeagueTableRetriever                        _leagueTableRetriever;
+        private         TeamRetriever                               _teamRetriever;
+        private         PlayerStatsRetriever                        _playerStatsRetriever;
         private         TransferPageRetriever                       _transferPageRetriever;
 
         public FantasyPremierLeagueApi(string username, string password, ILogger logger)
         {
-            _logger = logger;
+            Logger = logger;
             _allPlayersCache = new Dictionary<int, Player>();
             _username = username;
             _password = password;
@@ -55,12 +60,14 @@ namespace FantasyPremierLeagueApi.Api
 
         public FantasyPremierLeagueApi(string username, string password) : this(username, password, new ConsoleLogger()) { }
 
+
         /// <returns>The current gameweek as defined by Fantasy Premier League</returns>
         public int GetGameweekNumber()
         {
-            CheckAndCreateSession();
-            var reader = new HomepageRetriever(_logger);
-            return reader.GetCurrentGameweek(_session);
+            //CheckAndCreateSession();
+            var reader = GetHomepageRetriever();
+            var result = reader.GetCurrentGameweek(_session);
+            return result;
         }
 
         /// <summary>This method returns a map of club to their league performance for the specified season</summary>
@@ -69,11 +76,12 @@ namespace FantasyPremierLeagueApi.Api
         public Dictionary<IClub, ClubSeasonPerformance> GetClubSeasonPerformances(string season = "2015-2016")
         {
             CheckAndCreateSession();
-            var reader = new LeagueTableRetriever(_logger);
-            return reader.GetLeagueTable(_session, season)
+            var reader = GetLeagueTableRetriever();
+            var result = reader.GetLeagueTable(_session, season)
                 .GroupBy(perf => perf.Club)
                 .ToDictionary(grp => grp.Key, grp => grp.Single());
-                    
+            return result;
+
         }
 
         /// <summary>
@@ -81,26 +89,29 @@ namespace FantasyPremierLeagueApi.Api
         /// </summary>
         public IEnumerable<Player> GetAllPlayers()
         {
-            var reader = new PlayerStatsRetriever(_logger);
+            var reader = GetPlayerStatsRetriever();
+            var players = reader.GetAllPlayerStats();
 
-            for (int i = 1; i <= PlayerStatsRetriever.MAXPLAYER_ID; i++)
+            if (players != null)
             {
-                try
+                foreach (var player in players)
                 {
-                    if (!_allPlayersCache.ContainsKey(i))
+                    try
                     {
-                        var player = reader.GetPlayerStats(i);
-                        _allPlayersCache.Add(i, player);
+                        if (!_allPlayersCache.ContainsKey(player.Id))
+                        {
+                            _allPlayersCache.Add(player.Id, player);
+                        }
                     }
-                }
-                catch (ApplicationException ae)
-                {
-                    _logger.WriteErrorMessage(string.Format("Error getting player stats for player id {0}: {1}\r\n{2}", i, ae.Message, ae.StackTrace));
-                }
-                catch (Exception e)
-                {
-                    // some of the ids may throw - only log to debug logger
-                    _logger.WriteDebugMessage(string.Format("Error getting player stats for player id {0}: {1}\r\n{2}", i, e.Message, e.StackTrace));
+                    catch (ApplicationException ae)
+                    {
+                        Logger.WriteErrorMessage(string.Format("Error getting player stats for player id {0}: {1}\r\n{2}", player.Id, ae.Message, ae.StackTrace));
+                    }
+                    catch (Exception e)
+                    {
+                        // some of the ids may throw - only log to debug logger
+                        Logger.WriteDebugMessage(string.Format("Error getting player stats for player id {0}: {1}\r\n{2}", player.Id, e.Message, e.StackTrace));
+                    }
                 }
             }
 
@@ -117,7 +128,7 @@ namespace FantasyPremierLeagueApi.Api
         public Player GetPlayer(int id, PlayerStatsRetriever reader = null)
         {
             if (reader == null)
-                reader = new PlayerStatsRetriever(_logger);
+                reader = GetPlayerStatsRetriever();
 
             if (!_allPlayersCache.ContainsKey(id))
             {
@@ -125,7 +136,8 @@ namespace FantasyPremierLeagueApi.Api
                 _allPlayersCache.Add(id, player);
             }
 
-            return _allPlayersCache[id];
+            var result = _allPlayersCache[id];
+            return result;
         }
 
         /// <summary>
@@ -138,7 +150,7 @@ namespace FantasyPremierLeagueApi.Api
 
             CheckAndCreateSession();
             var myTeamReader = GetTransferPageRetriever();
-            var playerReader = new PlayerStatsRetriever(_logger);
+            var playerReader = GetPlayerStatsRetriever();
             var playerIdsToValues = myTeamReader.GetMyTeamTransferValues();
 
             foreach(var playerId in playerIdsToValues.Keys)
@@ -157,29 +169,72 @@ namespace FantasyPremierLeagueApi.Api
         {
             CheckAndCreateSession();
             var transferPageReader = GetTransferPageRetriever();
-            return transferPageReader.GetRemainingBudget();
+            var result = transferPageReader.GetRemainingBudget();
+            return result;
         }
 
 
         #region Private Methods
 
-        private TransferPageRetriever GetTransferPageRetriever()
+        protected virtual HomepageRetriever GetHomepageRetriever()
+        {
+            if (_homepageRetriever == null)
+            {
+                _homepageRetriever = new HomepageRetriever(Logger);
+            }
+
+            return _homepageRetriever;
+        }
+
+        protected virtual LeagueTableRetriever GetLeagueTableRetriever()
+        {
+            if (_leagueTableRetriever == null)
+            {
+                _leagueTableRetriever = new LeagueTableRetriever(Logger);
+            }
+
+            return _leagueTableRetriever;
+        }
+
+        protected virtual TeamRetriever GetTeamRetriever()
+        {
+            if (_teamRetriever == null)
+            {
+                _teamRetriever = new TeamRetriever(Logger);
+            }
+
+            return _teamRetriever;
+        }
+
+        protected virtual PlayerStatsRetriever GetPlayerStatsRetriever()
+        {
+            if (_playerStatsRetriever == null)
+            {
+                var teamRetriever = GetTeamRetriever();
+                _playerStatsRetriever = new PlayerStatsRetriever(Logger, teamRetriever);
+            }
+
+            return _playerStatsRetriever;
+        }
+
+        protected virtual TransferPageRetriever GetTransferPageRetriever()
         {
             if (_transferPageRetriever == null)
             {
                 CheckAndCreateSession();
-                _transferPageRetriever = new TransferPageRetriever(_logger, _session);
+                _transferPageRetriever = new TransferPageRetriever(Logger, _session);
             }
 
             return _transferPageRetriever;
         }
 
-        private void CheckAndCreateSession()
+        protected virtual void CheckAndCreateSession()
         {
             if (_session == null)
             {
-                _logger.WriteInfoMessage("Creating Session");
-                var authenticator = new FantasyPremierLeagueAuthenticator(_logger);
+                Logger.WriteInfoMessage("Creating Session");
+                //var authenticator = new FantasyPremierLeagueAuthenticator(Logger);
+                var authenticator = new FantasyPremierLeague2016Authenticator(Logger);
                 _session = authenticator.Authenticate(_username, _password);
 
                 if (_session == null)
