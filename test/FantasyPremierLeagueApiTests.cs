@@ -83,6 +83,8 @@ namespace FantasyPremierLeagueApi.Api
 
             var allPlayers = api.GetAllPlayers();
 
+            Assert.IsTrue(allPlayers.Count() > 0);
+
             _logger.WriteInfoMessage("All player stats: " +
                     JsonConvert.SerializeObject(allPlayers));
 
