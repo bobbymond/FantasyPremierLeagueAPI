@@ -31,7 +31,7 @@ namespace FantasyPremierLeagueApi
     public static class TestConstants
     {
         public const ConsoleLogger.LogLevel     TESTS_LOGGER_LEVEL  = ConsoleLogger.LogLevel.Info;
-        public const string                     USERNAME            = "bobbymond@gmail.com";
-        public const string                     PASSWORD            = "GGwtmoAFC.";
+        public const string                     USERNAME            = "change.me@blah.com";
+        public const string                     PASSWORD            = "xxxx";
     }
 }
