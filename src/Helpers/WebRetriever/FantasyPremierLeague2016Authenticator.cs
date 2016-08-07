@@ -63,8 +63,8 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever
                 //var players = ismPitch.SelectNodes("//div[@class='ismPlayerContainer']");
 
                 var loginForm = htmlDoc.DocumentNode.SelectSingleNode("//form[@class='ism-form__login-box']");
-                var csrfHiddenInput = loginForm?.SelectSingleNode("//input[@name='csrfmiddlewaretoken']");
-                var csrfmiddlewaretoken = csrfHiddenInput?.GetAttributeValue("value", null);
+                var csrfHiddenInput = loginForm.SelectSingleNode("//input[@name='csrfmiddlewaretoken']");
+                var csrfmiddlewaretoken = csrfHiddenInput.GetAttributeValue("value", null);
 
 
                 _logger.WriteInfoMessage("Authenticate - Authenticating");

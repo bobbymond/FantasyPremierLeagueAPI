@@ -33,7 +33,6 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever
     public class FantasyPremierLeagueAuthenticator
     {
         private const string _URL_GETSESSIONCOOKIES1    = "https://users.premierleague.com";
-        private const string _URL_GETSESSIONCOOKIES2    = "https://users.premierleague.com/PremierUser/account/login.html";
         private const string _URL_LOGIN                 = "https://users.premierleague.com/PremierUser/j_spring_security_check";
         private const string _FIELD_USERNAME            = "j_username";
         private const string _FIELD_PASSWORD            = "j_password";

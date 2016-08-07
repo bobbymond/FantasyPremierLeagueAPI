@@ -30,21 +30,29 @@ using FantasyPremierLeagueApi.Helpers.Logger;
 using FantasyPremierLeagueApi.Model.Player;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using FantasyPremierLeagueApi.Model.Club;
 
 namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Pages
 {
     public class PlayerStatsRetriever
     {
-        private const   string  ELEMENTS_PAGE   = "https://fantasy.premierleague.com/drf/elements";
-        private         ILogger _logger;
-        private         JArray  _jsonData;
-        private readonly TeamRetriever _teamRetriever;
+        private const    string                 ELEMENTS_PAGE       = "https://fantasy.premierleague.com/drf/elements";
+        private const    string                 PLAYER_HISTORY_PAGE = "https://fantasy.premierleague.com/drf/element-summary/";
+
+        private          ILogger                _logger;
+        private          JArray                 _jsonData;
+        private readonly Dictionary<int, Team>  _teamsMap;
 
         public PlayerStatsRetriever(ILogger logger, TeamRetriever teamRetriever = null)
         {
             _logger = logger;
-            _teamRetriever = teamRetriever ?? new TeamRetriever(_logger);
+            teamRetriever = teamRetriever ?? new TeamRetriever(_logger);
+            _teamsMap = new Dictionary<int, Team>();
 
+            var teams = teamRetriever.GetAllTeams();
+            foreach (var team in teams)
+                _teamsMap[team.Id] = team;
+            
             var requester = new WebPageRequester(_logger);
             CookieContainer cookies = null;
             var json = requester.Get(ELEMENTS_PAGE, ref cookies);
@@ -60,21 +68,26 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Pages
                     var rawStats = token.ToObject<RawPlayerStats>();
                     var elementType = int.Parse(rawStats.ElementTypeString) - 1;
                     var position = (Enums.Position) elementType;
-                    var club = _teamRetriever?.GetTeam(rawStats.TeamId);
+
+                    Team club;
+                    if(!_teamsMap.TryGetValue(rawStats.TeamId, out club))
+                        throw new ApplicationException("Unknown team id " + rawStats.TeamId);
+
+                    var pastSeasons = GetPlayerPastSeasonPerformance(rawStats.Id);
 
                     switch (position)
                     {
                         case Enums.Position.Goalkeeper:
-                            yield return new Goalkeeper(rawStats, club);
+                            yield return new Goalkeeper(rawStats, club, pastSeasons, null);
                             break;
                         case Enums.Position.Defender:
-                            yield return new Defender(rawStats, club);
+                            yield return new Defender(rawStats, club, pastSeasons, null);
                             break;
                         case Enums.Position.Midfielder:
-                            yield return new Midfielder(rawStats, club);
+                            yield return new Midfielder(rawStats, club, pastSeasons, null);
                             break;
                         case Enums.Position.Forward:
-                            yield return new Forward(rawStats, club);
+                            yield return new Forward(rawStats, club, pastSeasons, null);
                             break;
                         default:
                             throw new ApplicationException("Unknown position " + position);
@@ -87,6 +100,15 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Pages
         {
             var player = GetAllPlayerStats().FirstOrDefault(x => x.Id == playerId);
             return player;
+        }
+
+        private IEnumerable<PlayerSeasonPerformance> GetPlayerPastSeasonPerformance(int playerId)
+        {
+            var requester = new WebPageRequester(_logger);
+            CookieContainer cookies = null;
+            var json = requester.Get(PLAYER_HISTORY_PAGE + playerId.ToString(), ref cookies);
+            var playerStats = JsonConvert.DeserializeObject<PlayerSummaryStats>(json);
+            return playerStats.PastSeasonPerformance;
         }
     }
 }

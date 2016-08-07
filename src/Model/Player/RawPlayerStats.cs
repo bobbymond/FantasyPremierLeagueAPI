@@ -55,31 +55,22 @@ namespace FantasyPremierLeagueApi.Model.Player
         [JsonProperty("news")]
         public string News { get; set; }
 
-        [JsonProperty("fixture_history")]
-        public RawPlayerGameweekHistory GameweekHistory { get; set; }
-
-        [JsonProperty("fixtures")]
-        public RawFixtures Fixtures { get; set; }
+        //[JsonProperty("fixture_history")]
+        //public RawPlayerGameweekHistory GameweekHistory { get; set; }
 
         [JsonProperty("element_type")]
         public string ElementTypeString { get; set; }
 
-        [JsonProperty("season_history")]
-        public object[][] SeasonHistory { get; set; }
+       // [JsonProperty("season_history")]
+        //public object[][] SeasonHistory { get; set; }
 
-        [Serializable]
+        /*[Serializable]
         public class RawPlayerGameweekHistory
         {
             [JsonProperty("all")]
             public List<object[]> RawGameweeks { get; set; }
-        }
+        }*/
 
-        [Serializable]
-        public class RawFixtures 
-        {
-            [JsonProperty("all")]
-            public List<string[]> AllFixtures { get; set; }
-        }
 
     }
 }

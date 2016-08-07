@@ -46,7 +46,7 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever
         public void TestAuthenticate()
         {
             var logger = new ConsoleLogger();
-            var authenticator = new FantasyPremierLeagueAuthenticator(logger);
+            var authenticator = new FantasyPremierLeague2016Authenticator(logger);
 
             var cookies = authenticator.Authenticate(TestConstants.USERNAME, TestConstants.PASSWORD);
 

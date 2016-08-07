@@ -43,12 +43,20 @@ namespace FantasyPremierLeagueApi.Model.Player
         private readonly IClub _club;
 
 
-        public Player(RawPlayerStats stats, IClub club)
+        public Player(RawPlayerStats stats, IClub club, IEnumerable<PlayerSeasonPerformance> pastSeasonsPerformance, PlayerGameweekHistory gameweekHistory)
         {
             if (stats == null)
-                throw new ArgumentNullException(nameof(stats));
+                throw new ArgumentNullException("stats");
             if (club == null)
-                throw new ArgumentNullException(nameof(club));
+                throw new ArgumentNullException("club");
+            if (pastSeasonsPerformance == null)
+                throw new ArgumentNullException("pastSeasonsPerformance");
+            
+            // We accept nulls here for now
+            // TODO: Figure out where to get this data
+            //if (gameweekHistory == null)
+            //    throw new ArgumentNullException("gameweekHistory");
+
             _rawStats = stats;
             _club = club;
 
@@ -79,37 +87,20 @@ namespace FantasyPremierLeagueApi.Model.Player
                     throw new ApplicationException("Unknown status: " + stats.AvailabilityStatusString);
             }
 
-            //try
-            //{
-            //    GameweekHistory = new PlayerGameweekHistory(Club, stats.GameweekHistory.RawGameweeks);
-            //}
-            //catch (Exception e)
-            //{
-            //    throw new ApplicationException(string.Format("Unable to parse gameweek history for player '{0}'", stats.Name), e);
-            //}
+            GameweekHistory = gameweekHistory;
+            
 
-            //try
-            //{
-            //    if (stats.SeasonHistory != null && stats.SeasonHistory.Any())
-            //    {
-            //        PreviousSeasons = new Dictionary<string, PlayerSeasonPerformance>();
+            try
+            {
+                PreviousSeasons = new Dictionary<string, PlayerSeasonPerformance>();
 
-            //        foreach (var season in stats.SeasonHistory)
-            //            PreviousSeasons.Add(((string)season[0]).Trim(), new PlayerSeasonPerformance(season));
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    throw new ApplicationException(string.Format("Unable to parse season history for player '{0}'", stats.Name), e);
-            //}
-
-            //Fixtures = stats.Fixtures.AllFixtures
-            //        .Where(f => f[0] != "-")
-            //        .GroupBy(f => int.Parse(f[1].Split(' ')[1])) // group by gameweek (f[1] in form "Gameweek x")
-            //        .ToDictionary(
-            //            grp => grp.Key,
-            //            grp => grp.Select(f => new Fixture(Club, f)).ToArray()
-            //         );
+                foreach (var season in pastSeasonsPerformance)
+                    PreviousSeasons.Add(season.SeasonName, season);
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException(string.Format("Unable to parse season history for player '{0}'", stats.Name), e);
+            }
                     
         }
 
@@ -124,22 +115,21 @@ namespace FantasyPremierLeagueApi.Model.Player
         public Enums.Status                                 AvailabilityStatus  { get; private set; }
         public PlayerGameweekHistory                        GameweekHistory     { get; private set; }        
         public Enums.Position                               Position            { get; private set; }
-        public Dictionary<int,Fixture[]>                    Fixtures            { get; private set; }
-        public Dictionary<string, PlayerSeasonPerformance>  PreviousSeasons     { get; private set; }     
-        
-        public int MinutesPlayed { get { return GameweekHistory?.MinutesPlayed ?? 0; } }
-        public int Goals { get { return GameweekHistory?.Goals ?? 0; } }
-        public int Assists { get { return GameweekHistory?.Assists ?? 0; } }
-        public int Conceded { get { return GameweekHistory?.Conceded ?? 0; } }
-        public int CleanSheets { get { return GameweekHistory?.CleanSheets ?? 0; } }
-        public int PenaltySaves { get { return GameweekHistory?.PenaltySaves ?? 0; } }
-        public int PenaltiesMissed { get { return GameweekHistory?.PenaltiesMissed ?? 0; } }
-        public int YellowCards { get { return GameweekHistory?.YellowCards ?? 0; } }
-        public int RedCards { get { return GameweekHistory?.RedCards ?? 0; } }
-        public int Saves { get { return GameweekHistory?.Saves ?? 0; } }
-        public int Bonus { get { return GameweekHistory?.Bonus ?? 0; } }
-        public int GamesPlayed { get { return GameweekHistory?.GamesPlayed ?? 0; } }
-        public int OwnGoals { get { return GameweekHistory?.OwnGoals ?? 0; } }
+        public Dictionary<string, PlayerSeasonPerformance>  PreviousSeasons     { get; private set; }
+
+        public int MinutesPlayed { get { return GameweekHistory == null ? 0 : GameweekHistory.MinutesPlayed; } }
+        public int Goals { get { return GameweekHistory == null ? 0 : GameweekHistory.Goals; } }
+        public int Assists { get { return GameweekHistory == null ? 0 : GameweekHistory.Assists; } }
+        public int Conceded { get { return GameweekHistory == null ? 0 : GameweekHistory.Conceded; } }
+        public int CleanSheets { get { return GameweekHistory == null ? 0 : GameweekHistory.CleanSheets; } }
+        public int PenaltySaves { get { return GameweekHistory == null ? 0 : GameweekHistory.PenaltySaves; } }
+        public int PenaltiesMissed { get { return GameweekHistory == null ? 0 : GameweekHistory.PenaltiesMissed; } }
+        public int YellowCards { get { return GameweekHistory == null ? 0 : GameweekHistory.YellowCards; } }
+        public int RedCards { get { return GameweekHistory == null ? 0 : GameweekHistory.RedCards; } }
+        public int Saves { get { return GameweekHistory == null ? 0 : GameweekHistory.Saves; } }
+        public int Bonus { get { return GameweekHistory == null ? 0 : GameweekHistory.Bonus; } }
+        public int GamesPlayed { get { return GameweekHistory == null ? 0 : GameweekHistory.GamesPlayed; } }
+        public int OwnGoals { get { return GameweekHistory == null ? 0 : GameweekHistory.OwnGoals; } }
 
         abstract public int PointsPerGoal { get; }
         abstract public int PointsPerCleanSheet { get; }

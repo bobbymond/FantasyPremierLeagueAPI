@@ -74,6 +74,7 @@
     <Compile Include="Model\Player\PlayerGameweek.cs" />
     <Compile Include="Model\Player\PlayerGameweekHistory.cs" />
     <Compile Include="Model\Player\PlayerSeasonPerformance.cs" />
+    <Compile Include="Model\Player\PlayerSummaryStats.cs" />
     <Compile Include="Model\Player\RawPlayerStats.cs" />
     <Compile Include="Model\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

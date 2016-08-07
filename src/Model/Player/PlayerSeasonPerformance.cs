@@ -2,43 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace FantasyPremierLeagueApi.Model.Player
 {
     [Serializable]
     public class PlayerSeasonPerformance
     {
-        public long MinutesPlayed        { get; private set; }
-        public long GoalsScored          { get; private set; }
-        public long Assists              { get; private set; }
-        public long CleanSheets          { get; private set; }
-        public long GoalsConceded        { get; private set; }
-        public long OwnGoals             { get; private set; }
-        public long PenaltiesSaved       { get; private set; }
-        public long PenaltiesMissed      { get; private set; }
-        public long YellowCards          { get; private set; }
-        public long RedCards             { get; private set; }
-        public long Saves                { get; private set; }
-        public long Bonus                { get; private set; }
-        public long EASportsPPI          { get; private set; }
-        public long BonusPointsSystem    { get; private set; }
 
-        public PlayerSeasonPerformance(object[] statsFromSite)
-        {
-            MinutesPlayed       = (long) statsFromSite[1];
-            GoalsScored         = (long)statsFromSite[2];
-            Assists             = (long)statsFromSite[3];
-            CleanSheets         = (long)statsFromSite[4];
-            GoalsConceded       = (long)statsFromSite[5];
-            OwnGoals            = (long)statsFromSite[6];
-            PenaltiesSaved      = (long)statsFromSite[7];
-            PenaltiesMissed     = (long)statsFromSite[8];
-            YellowCards         = (long)statsFromSite[9];
-            RedCards            = (long)statsFromSite[10];
-            Saves               = (long)statsFromSite[11];
-            Bonus               = (long)statsFromSite[12];
-            EASportsPPI         = (long)statsFromSite[13];
-            BonusPointsSystem   = (long)statsFromSite[14];
-        }
+        [JsonProperty("season_name")]       public string       SeasonName           { get;  set; }
+        [JsonProperty("minutes")]           public long         MinutesPlayed        { get;  set; }
+        [JsonProperty("goals_scored")]      public long         GoalsScored          { get;  set; }
+        [JsonProperty("assists")]           public long         Assists              { get;  set; }
+        [JsonProperty("clean_sheets")]      public long         CleanSheets          { get;  set; }
+        [JsonProperty("goals_conceded")]    public long         GoalsConceded        { get;  set; }
+        [JsonProperty("own_goals")]         public long         OwnGoals             { get;  set; }
+        [JsonProperty("penalties_saved")]   public long         PenaltiesSaved       { get;  set; }
+        [JsonProperty("penalties_missed")]  public long         PenaltiesMissed      { get;  set; }
+        [JsonProperty("yellow_cards")]      public long         YellowCards          { get;  set; }
+        [JsonProperty("red_cards")]         public long         RedCards             { get;  set; }
+        [JsonProperty("saves")]             public long         Saves                { get;  set; }
+        [JsonProperty("bonus")]             public long         Bonus                { get;  set; }
+        [JsonProperty("ea_index")]          public long         EASportsPPI          { get;  set; }
+        [JsonProperty("bps")]               public long         BonusPointsSystem    { get;  set; }
+
     }
 }
