@@ -60,7 +60,7 @@ namespace FantasyPremierLeagueApi.Helpers.WebRetriever.Pages
                     var rawStats = token.ToObject<RawPlayerStats>();
                     var elementType = int.Parse(rawStats.ElementTypeString) - 1;
                     var position = (Enums.Position) elementType;
-                    var club = _teamRetriever?.GetTeam(rawStats.TeamId);
+                    var club = _teamRetriever.GetTeam(rawStats.TeamId);
 
                     switch (position)
                     {

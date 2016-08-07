@@ -35,7 +35,7 @@ namespace FantasyPremierLeagueApi.Model.Club
         public Team(RawTeamStats stats)
         {
             if (stats == null)
-                throw new ArgumentNullException(nameof(stats));
+                throw new ArgumentNullException("stats");
             _stats = stats;
         }
 

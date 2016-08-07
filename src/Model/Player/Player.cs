@@ -46,9 +46,9 @@ namespace FantasyPremierLeagueApi.Model.Player
         public Player(RawPlayerStats stats, IClub club)
         {
             if (stats == null)
-                throw new ArgumentNullException(nameof(stats));
+                throw new ArgumentNullException("stats");
             if (club == null)
-                throw new ArgumentNullException(nameof(club));
+                throw new ArgumentNullException("club");
             _rawStats = stats;
             _club = club;
 
@@ -127,19 +127,19 @@ namespace FantasyPremierLeagueApi.Model.Player
         public Dictionary<int,Fixture[]>                    Fixtures            { get; private set; }
         public Dictionary<string, PlayerSeasonPerformance>  PreviousSeasons     { get; private set; }     
         
-        public int MinutesPlayed { get { return GameweekHistory?.MinutesPlayed ?? 0; } }
-        public int Goals { get { return GameweekHistory?.Goals ?? 0; } }
-        public int Assists { get { return GameweekHistory?.Assists ?? 0; } }
-        public int Conceded { get { return GameweekHistory?.Conceded ?? 0; } }
-        public int CleanSheets { get { return GameweekHistory?.CleanSheets ?? 0; } }
-        public int PenaltySaves { get { return GameweekHistory?.PenaltySaves ?? 0; } }
-        public int PenaltiesMissed { get { return GameweekHistory?.PenaltiesMissed ?? 0; } }
-        public int YellowCards { get { return GameweekHistory?.YellowCards ?? 0; } }
-        public int RedCards { get { return GameweekHistory?.RedCards ?? 0; } }
-        public int Saves { get { return GameweekHistory?.Saves ?? 0; } }
-        public int Bonus { get { return GameweekHistory?.Bonus ?? 0; } }
-        public int GamesPlayed { get { return GameweekHistory?.GamesPlayed ?? 0; } }
-        public int OwnGoals { get { return GameweekHistory?.OwnGoals ?? 0; } }
+        public int MinutesPlayed { get { return GameweekHistory.MinutesPlayed; } }
+        public int Goals { get { return GameweekHistory.Goals; } }
+        public int Assists { get { return GameweekHistory.Assists; } }
+        public int Conceded { get { return GameweekHistory.Conceded; } }
+        public int CleanSheets { get { return GameweekHistory.CleanSheets; } }
+        public int PenaltySaves { get { return GameweekHistory.PenaltySaves; } }
+        public int PenaltiesMissed { get { return GameweekHistory.PenaltiesMissed; } }
+        public int YellowCards { get { return GameweekHistory.YellowCards; } }
+        public int RedCards { get { return GameweekHistory.RedCards; } }
+        public int Saves { get { return GameweekHistory.Saves; } }
+        public int Bonus { get { return GameweekHistory.Bonus; } }
+        public int GamesPlayed { get { return GameweekHistory.GamesPlayed; } }
+        public int OwnGoals { get { return GameweekHistory.OwnGoals; } }
 
         abstract public int PointsPerGoal { get; }
         abstract public int PointsPerCleanSheet { get; }
